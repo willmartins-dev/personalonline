@@ -1,0 +1,22 @@
+{% extends 'base_personal/base.html' %}
+{% block 'title'%}
+Início
+{% endblock %}
+
+{% block 'content'%}
+{% if user.is_superuser == True %}
+{{user}}
+<section class="content m-4 bg-white rounded p-4">
+    <h1 class="text-lg">Dash personal</h1>
+    {% for u in usuarios %}
+    <div>
+        {{u.id}}
+        {{u.first_name}}
+        {{u.email}}
+        {{u.is_superuser}}
+    </div>
+    {% endfor %}
+    
+</section>
+{% endif %}
+{% endblock %}
