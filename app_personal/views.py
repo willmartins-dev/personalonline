@@ -13,6 +13,18 @@ def inicio(request):
             'usuarios':usuarios
         }
         return render(request, 'home/home.html', context)
+def clientes(request):
+    if request.method == 'GET':
+        users = User.objects.all()
+        context={
+            'users':users
+        }
+        return render(request, 'gerenciar/clientes.html', context)
+def delete_user(request,id):
+    user = User.objects.get(id=id)
+    user.delete()
+
+    return redirect('clientes')
 
 def login_personal(request):
     if request.method == 'POST':
