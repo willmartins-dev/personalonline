@@ -4,11 +4,12 @@ Clientes
 {% endblock %}
 
 {% block 'content'%}
-{% if user.is_superuser == True %}
-{{user}}
-<section class="content m-4 bg-white rounded p-4">
-    <h1 class="text-lg p-2 border-solid border-b-1 my-3"><i class="fa fa-users m-2"></i>Clientes</h1>
+{% if user.is_superuser %}
+
+<section class="content m-4 rounded">
+    <h1 class="text-lg p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-500 text-white"><i class="fa fa-users m-2"></i>Clientes</h1>
     {% for u in users %}
+    {% if not u.is_superuser %}
     <div class="flex justify-between items-center px-2 {% cycle 'bg-gray-200' 'bg-white' %}">
         <div class="my-2">
         {{u.id}}
@@ -18,9 +19,11 @@ Clientes
         </div>
         <div class="flex items-center justify-between space-x-2">
             <a href="" class="bg-slate-700 text-white rounded-full px-2"><i class="fa fa-pencil"></i></a>
+            <a href="{% url 'treinamento' u.id %}" class="bg-slate-700 text-white rounded-full px-2"><i class="fa fa-heartbeat" aria-hidden="true"></i></a>
             <a href="{% url 'delete_user' u.id %}" class="bg-red-500 text-white rounded-full px-2"><i class="fa fa-trash"></i></a>
         </div>
     </div>
+    {% endif %}
     {% endfor %}
     
 </section>

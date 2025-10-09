@@ -1,0 +1,9 @@
+body{
+    background: #000000;
+    background: linear-gradient(50deg,rgba(0, 0, 0, 1) 0%, rgba(102, 102, 102, 1) 100%);
+    background-size: cover;
+     background-position: center center;
+     background-attachment: fixed; /* Optional: fixes the background relative to the viewport */
+  min-height: 100vh; /* Ensures the body takes up at least the full viewport height */
+  margin: 0; /* Remove default body margin */
+}

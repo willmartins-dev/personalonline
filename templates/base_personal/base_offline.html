@@ -9,24 +9,19 @@
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" integrity="sha512-5A8nwdMOWrSz20fDsjczgUidUBR8liPYU+WymTZP1lmY9G6Oc7HlZv156XqnsgNUzTyMefFTcsFH/tnJE/+xBg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
      <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body class="bg-gray-600 relative">
-    <div id="loader" class="bg-slate-900 flex flex-col items-center justify-center w-screen h-screen fixed z-10">
+<body class="bg-gray-600">
+    <div id="loader" class="bg-slate-900 flex flex-col items-center justify-center w-screen h-screen fixed ">
         <div class="w-16 h-16 border-4 border-blue-400 border-solid rounded-full animate-spin border-t-transparent"
         ></div>
         <div class="text-white">Carregando...</div>
     </div>
-
-     {% if user.is_authenticated %}
-
+    
     {% include 'base_personal/menu.html' %}
     {% block 'content' %}
    
     
     {% endblock %}
-    {% else %}
-     <p>Você precisa estar logado. <a href="{% url 'login_personal' %}">Clique aqui</a></a></p>
-    {% endif %}
-    {% include 'base_personal/menu_mobile.html' %}
+    
 </body>
 <script src="https://cdn-script.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
 <script src="{% static 'js/scripts.js' %}"></script>

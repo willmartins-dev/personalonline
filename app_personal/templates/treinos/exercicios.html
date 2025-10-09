@@ -1,0 +1,115 @@
+{% extends 'base_personal/base.html' %}
+{% block 'title'%}
+Exercícios
+{% endblock %}
+
+{% block 'content'%}
+{% if user.is_superuser == True %}
+
+<section class="content m-4 rounded">
+    <h1 class="text-lg p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-600 text-white"><i class="fa fa-gear m-2"></i>Gerenciar Exercícios</h1>
+    <div class="bg-white p-2 rounded-bl-lg rounded-br-lg shadow-md">
+        <h2 class="py-2 font-medium">Cadastrar Categoria</h2>
+        <form action="{% url 'exercicios' %}" method="post" class="flex items-center space-x-2">
+            {% csrf_token %}
+            <div>
+                <label class="block">Titulo:</label>
+                <input type="text" placeholder="ex:Peito, Costa..." name="titulo" class="bg-slate-200 p-1 rounded-2xl">
+            </div>
+            <div>
+                <label class="block">URL imagem:</label>
+                <input type="text" placeholder="link do site" name="url" class="bg-slate-200 p-1 rounded-2xl">
+            </div>
+            <div>
+                <label class="block">Tipo:</label>
+                <select name="tipo" class="bg-slate-200 p-1 rounded-2xl">
+                    <option>--SELECIONE--</option>
+                    <option value="Musculação">Musculação</option>
+                    <option value="Mobilidade">Mobilidade</option>
+                    <option value="Funcional">Funcional</option>
+                    <option value="Alongamento">Alongamento</option>
+                    <option value="Calistenia">Calistenia</option>
+                </select>
+            </div>
+            <div>
+                <br>
+                <button type="submit" class="cursor-pointer bg-green-600 py-1 px-2 text-white rounded-full"><i class="fa fa-plus fa-pull-right"></i></button>
+            </div>
+        </form>
+        
+    </div>
+    <br>
+    <h1 class="text-lg p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-600 text-white"><i class="fa fa-list m-2"></i>Lista Categorias</h1>
+    <div class="bg-white p-2 rounded-bl-lg rounded-br-lg shadow-md">
+    {% if categoria %}
+
+        <div data-tabs-toggle="#tabs-with-content" data-tabs-active-classes="text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-500" data-tabs-inactive-classes="text-gray-500 hover:text-gray-600 dark:text-gray-300 dark:hover:text-gray-400">
+          <ul class="flex flex-wrap text-sm font-medium text-center text-gray-500 dark:text-gray-400 py-3">
+            <li class="me-2">
+              <button data-tabs="musculacao" type="button" role="tab" aria-controls="musculacao" aria-selected="true" class="cursor-pointer inline-block p-4 rounded-t-lg border-b-2 hover:border-gray-300 border-cyan-300">Musculação</button>
+            </li>
+            <li class="me-2">
+              <button data-tabs="dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false" class="cursor-pointer inline-block p-4 rounded-t-lg border-b-2 hover:border-gray-300">Funcional</button>
+            </li>
+            <li class="me-2">
+              <button data-tabs="dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false" class="cursor-pointer inline-block p-4 rounded-t-lg border-b-2 hover:border-gray-300">Mobilidade</button>
+            </li>
+            <li class="me-2">
+              <button data-tabs="dashboard" type="button" role="tab" aria-controls="dashboard" aria-selected="false" class="cursor-pointer inline-block p-4 rounded-t-lg border-b-2 hover:border-gray-300">Alongamento</button>
+            </li>
+          </ul>
+        </div>
+    
+        <div class="tab-content text-white show space-x-2 space-y-2 flex flex-wrap justify-between items-center " id="musculacao">
+              {% for c in categoria %}
+                <div class="">
+                        <div class="relative flex justify-center rounded-tl-lg rounded-tr-lg bg-gray-800">
+                            {{c.titulo}}
+                            <a href="{% url 'delete_exercicio' c.id %}" class="text-red-500 absolute right-2"><i class="fa fa-trash"></i></a>
+                        </div>
+                        <figure class="w-40 h-40">
+                            <img src="{{c.url}}" />
+                        </figure>
+                        <div class="flex justify-center w-40">
+                            <a href="{% url 'cadastro_exercicios' c.id %}" class="bg-cyan-600 p-1 text-white w-full"><i class="fa fa-plus"></i> Adicionar exercício</a>
+                        </div>
+                    </div>
+                {% endfor %}
+        </div>
+        <div class="tab-content text-white hidden" id="dashboard">
+            conteudo 2
+        </div>
+     
+       {% else %}
+       <div class="flex justify-center">
+        <p><i class="fa fa-close px-2"></i>Nenhum exercício cadastrado</p>
+       </div>
+    {% endif %}
+    </div>
+
+    
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const tabs = document.querySelectorAll('[data-tabs]');
+                const tabContents = document.querySelectorAll('.tab-content'); 
+
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => {
+                        // Remove a classe 'active' de todos os botões e a classe 'hidden' do conteúdo
+                        tabs.forEach(item => item.classList.remove('border-cyan-300'));
+                        tabContents.forEach(content => content.classList.add('hidden'));
+
+                        // Adiciona a classe 'active' ao botão clicado
+                        tab.classList.add('border-cyan-300');
+
+                        // Exibe o conteúdo correspondente
+                        const target = document.querySelector(`#${tab.dataset.tabs}`);
+                        
+                        target.classList.remove('hidden');
+                    });
+                });
+            });
+        </script>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base_personal/base.html' %}
+{% block 'title'%}
+Treinos
+{% endblock %}
+
+{% block 'content'%}
+
+{% if user.is_superuser == True %}
+
+<section class="container m-auto my-4 rounded">
+    <h1 class="text-lg font-medium uppercase p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-500 text-white"><i class="fa fa-plus m-2"></i>Adicionar treino</h1>
+    <div class="bg-white p-2 space-y-2 rounded-br-lg rounded-bl-lg">
+        <form action="{% url 'treinamento' clientes.id  %}" method="post" class="flex flex-wrap items-center justify-between">
+            {% csrf_token %}
+            <div class="">
+                <label class="block">Título:</label>
+                <input type="text" name="titulo" class="w-full bg-slate-300 rounded-2xl p-1">
+            </div>
+            <div class="">
+                <label class="block">Periodização:</label>
+                <select name="periodizacao" class="w-full rounded-2xl bg-slate-300 p-1">
+                    <option value="Linear">Linear</option>
+                    <option value="Ondulatório">Ondulatório</option>
+                </select>
+            </div>
+            <div class="">
+                <label class="block">Duração:</label>
+                <input type="date" name="duracao" class="bg-slate-300 p-1 rounded-2xl w-full">
+            </div>
+            <div class="justify-start">
+                <br>    
+                <button type="submit" class="flex justify-start hover:animate-pulse cursor-pointer text-2xl text-green-500 w-30"><i class="fa fa-plus-circle"></i></button>
+            </div>
+        </form>
+    </div>
+    <div class="my-3">
+       <h1 class="text-lg font-medium uppercase p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-500 text-white"><i class="fa fa-list m-2"></i>Mesociclo</h1>
+       <div class="flex items-center gap-2 rounded-bl-lg rounded-br-lg bg-white p-2">
+        {% for m in mesociclo %}
+            <div class="flex flex-col bg-slate-200 space-y-3 items-center p-4 relative">
+                <a href="{% url 'delete_mesociclo' m.id %}" class="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-red-500 flex justify-center items-center text-white"><i class="fa fa-close"></i></a>
+                <h1 class="font-medium uppercase text-slate-600">
+                    <i class="fa fa-heartbeat"></i>
+                    <span>{{m.titulo}}</span>
+                </h1>
+                <a href="{% url 'microciclo' m.id %}" class="bg-green-500 w-full text-white  rounded-2xl px-2 font-medium"><i class="fa fa-plus"></i> Microciclo</a>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base_personal/base.html' %}
+{% block 'title'%}
+Exercícios
+{% endblock %}
+
+{% block 'content'%}
+{% if user.is_superuser == True %}
+
+<section class="content m-4 rounded">
+    <h1 class="text-lg p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-600 text-white"><i class="fa fa-gear m-2"></i>Gerenciar Exercícios</h1>
+    <div class="bg-white p-2 rounded-bl-lg rounded-br-lg shadow-md">
+        <h2 class="py-2 font-bold">Cadastrar exercício</h2>
+        <form action="{% url 'cadastro_exercicios' categoria.id %}" method="post" class="flex items-center space-x-2">
+            {% csrf_token %}
+            <div>
+                <label class="block">Titulo:</label>
+                <input type="text" placeholder="ex:SUPINO RETO, PUXADOR..." name="exercicio" class="bg-slate-200 p-1 rounded-2xl">
+            </div>
+            <div>
+                <label class="block">URL imagem:</label>
+                <input type="text" placeholder="link do site" name="url" class="bg-slate-200 p-1 rounded-2xl">
+            </div>
+            <div>
+                <br>
+                <button type="submit" class="cursor-pointer bg-green-600 py-1 px-2 text-white rounded-full"><i class="fa fa-plus"></i></button>
+            </div>
+        </form>
+        
+    </div>
+    <br>
+    <h1 class="text-lg p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-600 text-white"><i class="fa fa-list m-2"></i>Lista Exercícios</h1>
+    <div class="space-x-2 space-y-2 flex flex-wrap justify-between items-center bg-white p-2 rounded-bl-lg rounded-br-lg shadow-md">
+        {% if exercicios %}
+            {% for e in exercicios %}
+                <div class="">
+                    <figure>
+                        <img src="{{e.url}}" class="w-40">
+                    </figure>
+                    <p>{{e.exercicio}}</p>
+                </div>
+            {% endfor %}
+        {% else %}
+        <div class="flex items-center mx-auto">
+            <p><i class="fa fa-close"></i>Nenhum exercício cadastrado!</p>
+        </div>
+        {% endif %}
+    </div>
+   
+</section>
+{% endif %}
+{% endblock %}

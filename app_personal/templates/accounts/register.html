@@ -1,26 +1,28 @@
-{% extends 'base_personal/base.html' %}
+{% extends 'base_personal/base_offline.html' %}
 {% block 'title' %}Registrar{% endblock %}
 
 {% block 'content' %}
-<div class="flex justify-center my-4">
-    <h1 class="text-2xl">Personal App</h1>
-</div>
-<section class="content m-auto justify-center  w-[90%] bg-white shadow-md p-2 rounded-2xl border border-gray-400">
-    <h1 class="text-2xl m-auto w-[10%]">Cadastro</h1>
-    <form action="{% url 'login_personal' %}" method="post" class="flex flex-col justify-center gap-2 p-4">
-        
-        {% csrf_token %} 
-        <label>Nome:</label>
-        <input type="text" name="first_name" class="p-2 rounded-full border">
-        <label>E-mail:</label>
-        <input type="email" name="email" class="p-2 rounded-full border">
-        <label>Senha:</label>
-        <input type="password" name="password" class="p-2 rounded-full border">
-        <button type="submit" class="bg-gray-800 text-white rounded-full p-2">Login</button>
-    </form>
-    <div class="w-full py-4 flex flex-wrap items-center justify-start">
-        <p>Não tem conta?&nbsp;</p>
-        <a href="{% url 'login_personal' %}" class="text-blue-600">Login</a>
+<section class="flex items-center">
+    <div class="w-full max-w-[80%] m-auto">
+        <div class="my-4">  
+            <h1 class="text-2xl flex flex-col items-center justify-center text-4xl">
+                <i class="fa fa-user-circle-o text-cyan-500"></i><span class="text-white text-xl">Registre-se</span></h1>
+        </div>  
+        <form action="{% url 'login_personal' %}" method="post" class="flex flex-col justify-center gap-2 p-4">
+            
+            {% csrf_token %} 
+            <label class="text-white">Nome:</label>
+            <input type="text" name="first_name" class="p-2 rounded-full bg-white">
+            <label class="text-white">E-mail:</label>
+            <input type="email" name="email" class="p-2 rounded-full bg-white">
+            <label class="text-white">Senha:</label>
+            <input type="password" name="password" class="p-2 rounded-full bg-white">
+            <button type="submit" class="bg-cyan-600 font-medium text-white rounded-full p-2">Registrar</button>
+        </form>
+        <div class="w-full py-4 flex flex-wrap items-center justify-start">
+            <p class="text-white">Já tem conta?&nbsp;</p>
+            <a href="{% url 'login_personal' %}" class="text-cyan-600"><i class="fa fa-sign-in"></i>&nbsp;Login</a>
+        </div>
     </div>
 </section>
 {% endblock %}

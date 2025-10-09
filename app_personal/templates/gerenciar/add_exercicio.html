@@ -1,0 +1,29 @@
+{% extends 'base_personal/base.html' %}
+{% block 'title'%}
+Treinos
+{% endblock %}
+
+{% block 'content'%}
+{% if microciclo %}
+<section class="m-auto container my-4">
+    <h1 class="font-medium uppercase p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-500 text-white"><i class="fa fa-plus m-2"></i>Adicionar treino do dia</h1>
+    <div class="bg-white rounded-bl-lg rounded-br-lg p-4">
+        <div class="w-full flex gap-2 items-center">
+            <label><i class="fa fa-search"></i></label>
+            <input type="text" name="busca" data-url="{% url 'buscar_exercicio' %}" class="input-busca bg-slate-300 p-1 rounded-full w-full" placeholder="Ex: Peito, Costas, Quadriceps...">
+        </div>
+        <br>
+        <div  class=" flex flex-col items-center  border-solid border-t-1 py-3">
+            <div id="resultado-busca" class="">Aguardando pesquisa&nbsp;<i class="fa fa-arrow-up animate-bounce"></i></div>
+        </div>
+    </div>
+</section>
+<section class="m-auto container my-4">
+    <h1 class=" font-medium uppercase p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-500 text-white"><i class="fa fa-list m-2"></i>Microciclo</h1>
+    <div class="flex flex-col items-center bg-white gap-4 rounded-bl-lg rounded-br-lg p-4">
+       
+
+    </div>
+</section>
+{% endif %}
+{% endblock %}

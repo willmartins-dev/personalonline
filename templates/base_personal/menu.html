@@ -1,9 +1,10 @@
 {% if user.is_authenticated == True %}
+<div class=" hidden md:block ">
 <nav class="w-full bg-white p-4 flex flex-wrap items-center justify-between">
     <div>
         PERSONAL
     </div>
-    <ul class="flex items-center gap-2">
+    <ul class="flex flex-wrap items-center gap-2">
         <li>
             <a href="{% url 'home' %}" class="bg-blue-500 text-white p-2 rounded-md px-2 ">Início</a>
         </li>
@@ -11,8 +12,12 @@
             <a href="{% url 'clientes' %}" class="bg-blue-500 text-white p-2 rounded-md px-2 ">clientes</a>
         </li>
         <li>
+            <a href="{% url 'exercicios' %}" class="bg-blue-500 text-white p-2 rounded-md px-2 ">Exercícios</a>
+        </li>
+        <li>
             <a href="{% url 'logout' %}" class="bg-red-400 text-white p-2 rounded-2xl">Sair</a>
         </li>
     </ul>
 </nav>
+</div>
 {% endif %}

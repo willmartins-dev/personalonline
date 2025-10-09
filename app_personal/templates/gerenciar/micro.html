@@ -1,0 +1,54 @@
+{% extends 'base_personal/base.html' %}
+{% block 'title'%}
+Treinos
+{% endblock %}
+
+{% block 'content'%}
+{% if microciclo %}
+<div id="modal" class="flex items-center bg-slate-900/70 w-full h-full absolute top-0 hidden z-10">
+
+    <div id="busca" class="bg-white p-4 w-full max-w-[94%] m-auto space-y-4 rounded-2xl">
+        <a href="#" class="fechar">
+            <i class="fa fa-close"></i>
+        </a>
+        <div class=" relative" >
+            <i class="fa fa-search absolute top-2 right-2"></i>
+            <input type="text" name="busca" id="input-busca" data-id="" data-url="{% url 'buscar_exercicio' %}" class=" bg-slate-300 w-full p-1 rounded-2xl" placeholder="Digite sua busca ex: peito, costas ,quadriceps....">
+        </div>
+        <div class="resultado-busca flex flex-col items-center  border-solid border-t-1 py-3">
+            <div class="">Aguardando pesquisa&nbsp;<i class="fa fa-arrow-up animate-bounce"></i></div>
+        </div>
+    </div>
+</div>
+<section class="m-auto container my-4">
+    <h1 class="text-white font-medium uppercase p-4">{{mesociclo.titulo }} - {{mesociclo.duracao}}</h1>
+    <h1 class="font-medium uppercase p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-500 text-white"><i class="fa fa-plus m-2"></i>Adicionar treino do dia</h1>
+    <div class="bg-white rounded-bl-lg rounded-br-lg p-4">
+    
+    <form action="" method="POST" >
+        {% csrf_token %}
+        <div class="w-full flex gap-2 items-center">
+            <label>Título:</label>
+            <input type="text" name="titulo" class="bg-slate-300 p-1 rounded-full w-full">
+            <button type="submit" class="bg-green-500 rounded-full px-2 text-white"><i class="fa fa-plus"></i></button>
+        </div>
+    </form>
+    </div>
+</section>
+<section class="m-auto container my-4">
+    <h1 class=" font-medium uppercase p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-500 text-white"><i class="fa fa-list m-2"></i>Microciclo</h1>
+    <div class="flex flex-col items-center bg-white gap-4 rounded-bl-lg rounded-br-lg p-4">
+        {% for m in microciclo %}
+        <div class="w-full p-4 bg-slate-200 flex justify-between items-center space-y-3 rounded relative">
+            <a href="{% url 'delete_microciclo' m.id %}" class="text-white absolute -top-1 -right-1 bg-red-500 rounded-full px-1"><i class="fa fa-close"></i></a>
+            <h2 class="font-medium text-slate-500">{{m.titulo}}</h2>
+            <a href="#" data-modal-busca="{{m.id}}"  class="bg-green-500 p-1 text-white rounded"><i class="fa fa-plus"></i>Exercícios</a>
+
+        </div>
+        
+        {% endfor %}
+
+    </div>
+</section>
+{% endif %}
+{% endblock %}
