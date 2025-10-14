@@ -9,7 +9,7 @@
         </h1>
         
     </div>
-    <div class="w-full max-w-[80%] m-auto">
+    <div class="w-full max-w-[500px] m-auto">
         <form action="{% url 'login_personal' %}" method="post" class="flex flex-col justify-center gap-2 p-4">
             
             {% csrf_token %} 
@@ -17,7 +17,7 @@
             <input type="email" name="username" class="p-2 rounded-full ">
             <label class="text-white">Senha:</label>
             <input type="password" name="password" class="p-2 rounded-full ">
-            <button type="submit" class="bg-cyan-600 text-white font-medium rounded-full p-2">Login</button>
+            <button type="submit" class="bg-cyan-600 text-white font-medium rounded-full p-2 cursor-pointer">Entrar&nbsp;<i class="fa fa-sign-in"></i></button>
         </form>
         <div class="w-full py-4 flex flex-wrap items-center justify-start">
             <p class="text-white">Não tem conta?&nbsp;</p>

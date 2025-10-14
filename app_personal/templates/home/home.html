@@ -5,9 +5,11 @@ Início
 
 {% block 'content'%}
 {% if user.is_superuser == True %}
-{{user}}
 <section class="content m-4 bg-white rounded p-4">
     <h1 class="text-lg">Dash personal</h1>
+    {% if not group %}
+        Sem usuarios
+    {% else %}
     {% for u in usuarios %}
     <div>
         {{u.id}}
@@ -16,6 +18,7 @@ Início
         {{u.is_superuser}}
     </div>
     {% endfor %}
+    {% endif %}
     
 </section>
 {% endif %}

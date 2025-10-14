@@ -4,8 +4,8 @@ Treinos
 {% endblock %}
 
 {% block 'content'%}
-{% if microciclo %}
-<div id="modal" class="flex items-center bg-slate-900/70 w-full h-full absolute top-0 hidden z-10">
+
+<div id="modal" class="flex items-center bg-slate-900/70 w-full h-full fixed top-0 hidden z-10">
 
     <div id="busca" class="bg-white p-4 w-full max-w-[94%] m-auto space-y-4 rounded-2xl">
         <a href="#" class="fechar">
@@ -39,16 +39,47 @@ Treinos
     <h1 class=" font-medium uppercase p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-500 text-white"><i class="fa fa-list m-2"></i>Microciclo</h1>
     <div class="flex flex-col items-center bg-white gap-4 rounded-bl-lg rounded-br-lg p-4">
         {% for m in microciclo %}
-        <div class="w-full p-4 bg-slate-200 flex justify-between items-center space-y-3 rounded relative">
+        <div class="w-full p-4 bg-slate-400 flex justify-between items-center space-y-3 rounded relative">
             <a href="{% url 'delete_microciclo' m.id %}" class="text-white absolute -top-1 -right-1 bg-red-500 rounded-full px-1"><i class="fa fa-close"></i></a>
-            <h2 class="font-medium text-slate-500">{{m.titulo}}</h2>
-            <a href="#" data-modal-busca="{{m.id}}"  class="bg-green-500 p-1 text-white rounded"><i class="fa fa-plus"></i>Exercícios</a>
-
+            <h2 class="font-medium text-slate-900">{{m.titulo}}</h2>
+            <a href="#" data-modal-busca="{{m.id}}"  class="bg-slate-900 p-1 text-white rounded shadow-md"><i class="fa fa-plus"></i>Exercícios</a>
+          
         </div>
-        
+        <div>
+           
+            {% for e in exercicios %}
+              {% if e.microciclo_id == m.id %}
+               <a href="{% url 'delete_exercicio_cliente' e.id %}"><i class="fa fa-close"></i></a>
+              <form action="{% url 'update_exercicios_cliente' e.id %}" method="post" class="flex flex-wrap items-center space-y-4 gap-2 border-b-1 border-gray-400">
+                {%  csrf_token %}
+                <div>
+                    <label class="block">Exercício:</label>
+                    <input type="text" class="bg-slate-200 p-2 border border-slate-500" name="exercicio" value="{{e.exercicio}}">
+                </div>
+                <div>
+                    <label class="block">Séries:</label>
+                    <input type="text" class="bg-slate-200 p-2 w-26  border border-slate-500" name="series" value="{{e.series}}">
+                </div>
+                <div>
+                    <label class="block">Reps:</label>
+                    <input type="text" class="bg-slate-200 p-2 w-26  border border-slate-500" name="reps" value="{{e.reps}}">
+                </div>
+                <div class="w-full my-3">
+                    <label class="block">Observação:</label>
+                    <input type="text" class="bg-slate-200 p-2 w-[100%] border border-slate-500" name="obs" value="{{e.obs}}">
+                </div>
+                <div>
+                    <button type="submit" data-btn="{{e.id}}" class="text-white bg-green-500 p-2 rounded-md">Atualizar</button>
+                </div>
+              </form>
+                  
+              {% endif %}
+               
+                
+            {% endfor %}
+        </div>
         {% endfor %}
 
     </div>
 </section>
-{% endif %}
 {% endblock %}

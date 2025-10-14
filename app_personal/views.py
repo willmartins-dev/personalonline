@@ -2,26 +2,43 @@ from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.contrib import messages
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from .models import CategoriaExercicios, Exercicios, Mesociclo, Microciclo, ExerciciosCliente
 import json
 
-@login_required
+
 def inicio(request):
-    if request.method == 'GET':
-        usuarios = User.objects.all()
-        context={
-            'usuarios':usuarios
-        }
-        return render(request, 'home/home.html', context)
+    if request.user.is_authenticated:
+
+        if request.method == 'GET':
+            
+            if request.user.groups is None:
+                grupo = Group.objects.get(name = request.user.email)
+                usuarios = User.objects.filter(groups = grupo.id)
+            else:
+                usuarios=''
+
+            context={
+                'usuarios':usuarios
+            }
+            return render(request, 'home/home.html', context)
+            #return HttpResponse(request.user)
+    else:
+
+        return redirect('login_personal')
+
 def clientes(request):
     if request.method == 'GET':
-        users = User.objects.all()
+        grupo, created = Group.objects.get_or_create(name = request.user.email)
+        get_group = Group.objects.get(name = request.user.email)
+
+            
+        usuarios = User.objects.filter(groups = get_group.id)
         context={
-            'users':users
+            'usuarios':usuarios
         }
         return render(request, 'gerenciar/clientes.html', context)
 def treinamento(request, id):
@@ -52,14 +69,25 @@ def treinamento(request, id):
            
             return redirect('treinamento',id=id)
     
+def delete_exercicio_cliente(request,id):
+    exercicio = ExerciciosCliente.objects.get(id=id)
+    request.session['id_micro'] = exercicio.microciclo_id
+    microciclo = Microciclo.objects.get(id=request.session['id_micro'])
+    exercicio.delete()
+
+    return redirect('microciclo', id=microciclo.mesociclo_id)
+    
 def microciclo(request,id):
 
     mesociclo = Mesociclo.objects.get(id=id)
-    microciclo = Microciclo.objects.filter(mesociclo_id=mesociclo.id)
+    microciclo = Microciclo.objects.filter(mesociclo__id = id)
+    exercicios = ExerciciosCliente.objects.filter(microciclo__mesociclo = mesociclo)
+
     if request.method == 'GET':
         context={
             'mesociclo':mesociclo,
             'microciclo':microciclo,
+            'exercicios':exercicios,
         }
         return render(request, 'gerenciar/micro.html', context)
     
@@ -95,6 +123,20 @@ def buscar_exercicio(request):
         'id_sessao':id_sessao
     }
     return render(request, 'gerenciar/ajax/buscar_exercicio.html', context)
+
+def update_exercicios_cliente(request,id):
+    if request.method == 'POST':
+
+        exercicios_clientes = ExerciciosCliente.objects.get(id=id)
+
+        exercicios_clientes.exercicio = request.POST.get('exercicio')
+        exercicios_clientes.series = request.POST.get('series')
+        exercicios_clientes.reps = request.POST.get('reps')
+        exercicios_clientes.obs = request.POST.get('obs')
+       
+        exercicios_clientes.save()
+
+        return HttpResponse('ok')
 
 def delete_mesociclo(request, id):
     mesociclo = Mesociclo.objects.get(id=id)
@@ -177,6 +219,30 @@ def logout_personal(request):
     logout(request)
     return redirect('login_personal')
 
+def register_cliente(request,id):
+    
+    if request.method == 'POST':
+
+        first_name = request.POST['first_name']
+        email=request.POST['email_cliente']
+        password=request.POST['password']
+        user = User.objects.create_user(
+            first_name = first_name,
+            username=email, 
+            email=email,
+            is_superuser = 0,
+            password=password
+            )
+        
+        cliente_group, created = Group.objects.get_or_create(name=request.user.email)
+        cliente_group.user_set.add(user)
+        cliente_group.save()
+
+        messages.success(request, "Conta criada!")
+        return redirect('clientes')
+    
+def cadastrar_senha(request, id):
+    return render(request, 'gerenciar/password.html')
 def register_personal(request):
     if request.method == 'POST':
 

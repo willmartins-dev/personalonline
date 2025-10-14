@@ -1,5 +1,19 @@
 
 $(document).ready(function(){
+   $('#esconde-menu').on('click', function(e){
+      e.preventDefault();
+      
+       $('#nav').slideUp(300)
+       $('#show-menu').removeClass('hidden');
+      
+   });
+   $('#show-menu').on('click',function(e){
+      e.preventDefault();
+      
+       $('#nav').slideDown(300)
+    
+      $(this).addClass('hidden')
+   })
    function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {
@@ -19,6 +33,19 @@ $(document).ready(function(){
 const csrftoken = getCookie('csrftoken');
    //global loader
    $('#loader').hide();
+
+   $('[data-btn]').on('click', function(e){
+      e.preventDefault();
+      const url = 'personal/update_exercicios_cliente/'+$(this).val();
+
+      $.ajax({
+         url:url,
+         method:'POST',
+         success:function(data){
+            console.log(data)
+         }
+      });
+   })
 
    $('[data-id]').on('keyup', function(e){
       
@@ -98,6 +125,7 @@ const csrftoken = getCookie('csrftoken');
       $('.resultado-busca').html('');
 
       $('#modal').addClass('hidden')
+      window.location.reload(true)
    })
 
 })
