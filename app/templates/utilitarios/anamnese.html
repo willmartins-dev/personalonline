@@ -1,0 +1,20 @@
+{% extends 'base/base.html' %}
+{% block 'title'%}
+Início
+{% endblock %}
+
+{% block 'content'%}
+{% if user %}
+<h1 class="text-center text-lg border-b-1 border-slate-600 p-4 text-slate-200">Anamnese</h1>
+<section class="content w-full max-w-[900px] m-auto my-4 p-4 text-black space-y-3">
+    <p class="text-white uppercase">Preencha corretamente as informações para que seu treino seja pensado de acordo com seu objetivo e limitações!</p>
+     <form id="" class="form-django flex flex-col " method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="bg-green-500 text-white font-medium p-2 cursor-pointer">Enviar</button>
+    </form>
+</section>
+<br><br>
+<br><br>
+{% endif %}
+{% endblock %}

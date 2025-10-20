@@ -1,16 +1,48 @@
-<nav class="w-full bg-white p-4 flex flex-wrap items-center justify-between">
-    <div>
-        ALUNO
-    </div>
-    <ul class="flex items-center gap-2">
+{% if user.is_authenticated == True %}
+<div id="configuracoes" class="hidden w-full h-screen bg-white fixed top-0 z-10">
+        <div class="flex items-center justify-between p-4 border-b-1 border-slate-400 text-slate-700">
+            <h1 class="text-lg"><i class="fa fa-gear fa-lg"></i>&nbsp;Configurações</h1>
+            <a href="#" id="close-config" class=""><i class="fa fa-close fa-2x"></i></a>
+        </div>
+        <div class="flex flex-col items-center justify-center w-full">
+            <a href="{% url 'update_dados' %}" class="p-4 w-full border-b-1 border-slate-400 border-dashed uppercase font-medium">
+                <i class="fa fa-address-card"></i>&nbsp;Atualizar Dados pessoais
+            </a>
+             <a href="senha_update" class="p-4 w-full border-b-1 border-slate-400 border-dashed uppercase font-medium">
+                <i class="fa fa-unlock-alt"></i>&nbsp;Atualizar senha
+            </a>
+
+        </div>
+</div>
+<nav class="w-full bg-white p-4 fixed bottom-0 left-0 z-9">
+    <ul class="flex flex-wrap items-center justify-between gap-2">
         <li>
-            <a href="{% url 'home' %}" class="bg-blue-500 text-white p-2 rounded-md px-2 ">Início</a>
+            <a href="{% url 'home' %}" class="text-gray-600 p-2 rounded-md px-2 ">
+                <i class="fa fa-home fa-2x"></i>
+            </a>
         </li>
         <li>
-            <a href="{% url 'home' %}" class="bg-blue-500 text-white p-2 rounded-md px-2 ">Configurações</a>
+            <a href="{% url 'home' %}" class="text-gray-600 p-2 rounded-md px-2 ">
+                <i class="fa fa-tachometer fa-2x"></i>
+            </a>
+        </li>
+         <li class="relative w-10 h-10">
+            <a href="{% url 'home' %}" class="text-slate-800 p-3 bg-amber-400 absolute -top-7 -left-5 rounded-full border border-5">
+                <i class="fa fa-heartbeat animate-pulse fa-3x"></i>
+                
+            </a>
+            <span class=""> Treinar</span>
         </li>
         <li>
-            <a href="{% url 'logout' %}" class="bg-red-400 text-white p-2 rounded-2xl">Sair</a>
+            <a href="#" id="open-config" class="text-gray-600 p-2 rounded-md px-2 ">
+                <i class="fa fa-gear fa-2x"></i>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'home' %}" class="text-gray-600 p-2 rounded-md px-2 ">
+                <i class="fa fa-bell fa-2x"></i>
+            </a>
         </li>
     </ul>
 </nav>
+{% endif %}

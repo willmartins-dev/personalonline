@@ -1,0 +1,60 @@
+{% extends 'base/base.html' %}
+{% block 'title'%}
+Início
+{% endblock %}
+
+{% block 'content'%}
+{% if user %}
+
+<section class="w-screen h-screen bg-gradient-to-b from-gray-200 to-gray-300 fixed flex justify-center">
+    <div id="form-dados-iniciais" class="w-full max-w-[500px] flex flex-col justify-center">
+        <h1 class="text-center text-4xl text-amber-700 my-2">{{personal}}</h1>
+        <h1 class="text-center my-2">Preencha as seguintes informações para o seu personal</h1>
+        <form action="{% url 'dados_iniciais' %}" method="post" class="w-full flex flex-col justify-start space-y-3 p-4">
+            {% csrf_token %}
+            <div>
+                <label class="block">Gênero:</label>
+                <a href="#" id="feminino" class="p-2 bg-slate-300 hover:bg-pink-400 flex justify-center"><i class="fa fa-venus fa-2x"></i>&nbsp;Feminino</a>
+                <a href="#" id="masculino" class="p-2 bg-slate-300 hover:bg-cyan-400 flex justify-center"><i class="fa fa-mars fa-2x"></i>&nbsp;Masculino</a>
+                <input type="hidden" id="gender" name="gender" value="">
+                <script>
+                    const masculino_bt = document.getElementById('masculino')
+                    const feminino_bt = document.getElementById('feminino')
+                    const genero = document.getElementById('gender')
+                    console.log(genero)
+                    masculino_bt.addEventListener('click', function(e){
+                        e.preventDefault()
+                        genero.value = 'masculino'
+                        this.classList.remove('bg-slate-300')
+                        this.classList.add('bg-cyan-400')
+                        feminino_bt.classList.remove('bg-pink-400')
+                        feminino_bt.classList.add('bg-slate-300')
+                    })
+                    feminino_bt.addEventListener('click', function(e){
+                        e.preventDefault()
+                        genero.value = 'feminino'
+                         this.classList.remove('bg-slate-300')
+                        this.classList.add('bg-pink-400')
+                         masculino_bt.classList.remove('bg-cyan-400')
+                         masculino_bt.classList.add('bg-slate-300')
+                    })
+                </script>
+            </div>
+            <div>
+                <label class="block">Data de nascimento:</label>
+                <input type="date" name="nascimento" class="bg-slate-300 p-3 rounded-full w-full">
+            </div>
+            <div>
+                <label class="block">Altura(cm):</label>
+                <input type="number" name="altura" class="bg-slate-300 p-3 rounded-full w-full" placeholder="Ex: 175">
+            </div>
+            <div>
+                <label class="block">Peso(Kg):</label>
+                <input type="number" name="peso" class="bg-slate-300 p-3 rounded-full w-full" placeholder="Ex: 65.5">
+            </div>
+            <button type="submit" class="bg-green-500 text-white font-medium uppercase rounded-full p-3">Enviar dados</button>
+        </form>
+    </div>
+</section>
+{% endif %}
+{% endblock %}
