@@ -31,7 +31,19 @@ def home(request):
         'tmb':dados_iniciais.calc_kcal()
     }
     return render(request, 'inicio/home.html', context)
-  
+def treino(request):
+
+    Meso = Mesociclo.objects.all().last()
+    Micro = Microciclo.objects.filter(mesociclo__id = Meso.id)
+    exercicios = ExerciciosCliente.objects.filter(microciclo__mesociclo = Meso)
+
+    context={
+        'meso':Meso,
+        'micro':Micro,
+        'exercicios':exercicios
+    }
+
+    return render(request,'treino/treino.html', context)
 def anamnese(request):
 
     if request.method == 'POST':

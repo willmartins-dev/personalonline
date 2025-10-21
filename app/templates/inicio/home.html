@@ -11,18 +11,18 @@ Início
         <h1>Olá, {{user.first_name}}</h1>
         <a href="{% url 'logout' %}" class="bg-red-500 p-1 rounded-full"><i class="fa fa-sign-out"></i> LOGOUT</a>
     </div>
-    <div class="flex flex-wrap items-center justify-between gap-2 my-4">
-        <div class="bg-gradient-to-b from-gray-200 to-gray-400 w-30 h-30 rounded-full flex flex-col items-center justify-center text-slate-900">
+    <div class="flex flex-wrap items-center justify-between my-4">
+        <div class="bg-gradient-to-b from-gray-200 to-gray-400 w-26 h-26 rounded-full flex flex-col items-center justify-center text-slate-900">
             <i class="fa fa-child fa-2x"></i>
             <p class="font-medium">Peso Atual</p>
             <p>{{dados_iniciais.peso}}Kg</p>
         </div>
-        <div class="bg-gradient-to-b from-gray-200 to-gray-400 w-30 h-30 rounded-full flex flex-col items-center justify-center text-slate-900">
+        <div class="bg-gradient-to-b from-gray-200 to-gray-400 w-26 h-26 rounded-full flex flex-col items-center justify-center text-slate-900">
             <i class="fa fa-tint fa-2x"></i>
             <p class="font-medium">Hidrate-se</p>
             <p>{{calc_agua}}Litros</p>
         </div>
-        <div class="bg-gradient-to-b from-gray-200 to-gray-400 w-30 h-30 rounded-full flex flex-col items-center justify-center text-slate-900">
+        <div class="bg-gradient-to-b from-gray-200 to-gray-400 w-26 h-26 rounded-full flex flex-col items-center justify-center text-slate-900">
             <i class="fa fa-heart fa-2x"></i>
             <p class="font-medium">TMB</p>
             <p>{{tmb}}Kcal</p>
@@ -35,7 +35,7 @@ Início
         <div class="flex items-center justify-between ">
             <h2 class="text-sm text-slate-900"><i class="fa fa-heartbeat"></i>&nbsp;{{t.titulo}}</h2>     
             <p>Final: {{t.duracao}}</p>
-
+            
         </div>
         {% endfor %}
     </div>

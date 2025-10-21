@@ -128,6 +128,7 @@ def update_exercicios_cliente(request,id):
     if request.method == 'POST':
 
         exercicios_clientes = ExerciciosCliente.objects.get(id=id)
+        request.session['id_return'] = exercicios_clientes.microciclo_id
 
         exercicios_clientes.exercicio = request.POST.get('exercicio')
         exercicios_clientes.series = request.POST.get('series')
@@ -136,7 +137,7 @@ def update_exercicios_cliente(request,id):
        
         exercicios_clientes.save()
 
-        return HttpResponse('ok')
+        return redirect('microciclo', id=request.session['id_return'])
 
 def delete_mesociclo(request, id):
     mesociclo = Mesociclo.objects.get(id=id)

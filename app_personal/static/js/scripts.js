@@ -34,9 +34,10 @@ const csrftoken = getCookie('csrftoken');
    //global loader
    $('#loader').hide();
 
-   $('[data-btn]').on('click', function(e){
+  /* $('[data-btn]').on('click', function(e){
       e.preventDefault();
-      const url = 'personal/update_exercicios_cliente/'+$(this).val();
+      const valBtn = e.target.dataset.btn;
+      const url = 'personal/update_exercicios_cliente/'+valBtn;
 
       $.ajax({
          url:url,
@@ -45,7 +46,7 @@ const csrftoken = getCookie('csrftoken');
             console.log(data)
          }
       });
-   })
+   })*/
 
    $('[data-id]').on('keyup', function(e){
       

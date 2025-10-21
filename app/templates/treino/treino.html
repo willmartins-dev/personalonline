@@ -1,0 +1,54 @@
+{% extends 'base/base.html' %}
+{% block 'title'%}
+Início
+{% endblock %}
+
+{% block 'content'%}
+{% if user %}
+<h1 class="text-center text-lg border-b-1 border-slate-600 p-4 text-slate-200">DASHBOARD</h1>
+<section class="content w-full max-w-[900px] m-auto my-4 p-4 text-white space-y-3">
+    <div class="flex items-center justify-between">
+        <h1>Olá, {{user.first_name}}</h1>
+        <a href="{% url 'logout' %}" class="bg-red-500 p-1 rounded-full"><i class="fa fa-sign-out"></i> LOGOUT</a>
+    </div>
+
+    {% if meso %}
+    <div class="bg-white p-3 rounded-lg text-amber-900 shadow-md">
+        <div class="flex items-center justify-between ">
+            <h2 class="text-sm text-slate-900"><i class="fa fa-heartbeat"></i>&nbsp;{{meso.titulo}}</h2>     
+            <p>Final: {{meso.duracao}}</p>
+            
+        </div>
+       
+    </div>
+    {% for t in micro %}
+            <div class="flex flex-col bg-amber-400 text-slate-900 p-2 space-y-3">
+                <h1 class="text-center my-2">{{t.titulo}}</h1>
+                {% for e in exercicios %}
+                    <div class="uppercase flex flex-col justify-between">
+                         <p class="bg-slate-900 text-white p-1 rounded">{{e.exercicio}}</p>
+                         <div class="flex justify-center">
+                            <figure class="w-50 h-50 overflow">
+                                <img src="{{e.url_img}}" >
+                            </figure>
+                        
+                            <p class="bg-slate-900 text-white p-1 ">{{e.series}} Séries</p> 
+                            <p class="bg-slate-900 text-white p-1 ">{{e.reps}} reps</p>
+                        </div>
+                        
+                    </div>
+                    <p class="font-medium">Obs: {{e.obs}}</p>
+                    <hr>
+                {% endfor %}
+            </div>
+    {% endfor %}
+    {% else %}
+        <div class="bg-white text-slate-900 text-center rounded-2xl p-4 space-y-3">
+            <h1 class="">Responda a Anamnese honestamente para que possamos alcançar juntos seu objetivo!</h1>
+            <a href="{% url 'anamnese' %}" class="bg-amber-600 p-2 rounded-full uppercase font-medium">Responder agora!</a>
+        </div>
+    {% endif %}
+</section>
+<br><br><br><br>
+{% endif %}
+{% endblock %}
