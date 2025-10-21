@@ -262,6 +262,7 @@ def register_personal(request):
             )
         user.save()
         messages.success(request, "Conta criada!")
+        return redirect('login_personal')
         
     
     return render(request, 'accounts/register.html')

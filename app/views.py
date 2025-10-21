@@ -7,31 +7,39 @@ from django.urls import reverse
 from .models import DadosIniciais
 from .forms import AnamneseForm
 
+def index(request):
+    return render(request, 'publico/index.html')
+
 def home(request):
     user_auth = request.user.is_authenticated
     user_id = request.user
     user_group = request.user.groups.all()
     
-    if user_auth is None:
+    if not user_auth:
         return redirect('login_view')
-    
-    dados_iniciais_verificados = DadosIniciais.objects.filter(user_id = user_id)
-    treino = Mesociclo.objects.filter(user_id=user_id)
+    else:
+        dados_iniciais_verificados = DadosIniciais.objects.filter(user_id = user_id)
+        treino = Mesociclo.objects.filter(user_id=user_id)
 
-    if not dados_iniciais_verificados:
-        return redirect('dados_iniciais')
-    else:    
-        dados_iniciais = DadosIniciais.objects.get(user_id = user_id)
-        context={
-        'treino':treino,
-        'grupo':user_group,
-        'dados_iniciais':dados_iniciais,
-        'calc_idade':dados_iniciais.Idade(),
-        'calc_agua':dados_iniciais.calc_agua(),
-        'tmb':dados_iniciais.calc_kcal()
-    }
-    return render(request, 'inicio/home.html', context)
+        if not dados_iniciais_verificados:
+            return redirect('dados_iniciais')
+        else:    
+            dados_iniciais = DadosIniciais.objects.get(user_id = user_id)
+            context={
+            'treino':treino,
+            'grupo':user_group,
+            'dados_iniciais':dados_iniciais,
+            'calc_idade':dados_iniciais.Idade(),
+            'calc_agua':dados_iniciais.calc_agua(),
+            'tmb':dados_iniciais.calc_kcal()
+        }
+        return render(request, 'inicio/home.html', context)
 def treino(request):
+
+    user_auth = request.user.is_authenticated
+
+    if not user_auth:
+        return redirect('login_view')
 
     Meso = Mesociclo.objects.get(user_id=request.user)
     Micro = Microciclo.objects.filter(mesociclo__id = Meso.id)
@@ -62,6 +70,10 @@ def anamnese(request):
     return render(request, 'utilitarios/anamnese.html', {'form':form})         
        
 def dados_iniciais(request):
+
+    user_auth = request.user.is_authenticated
+    if not user_auth:
+        return redirect('login_view')
 
     if request.method == 'GET':
             
