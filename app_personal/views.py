@@ -128,7 +128,8 @@ def update_exercicios_cliente(request,id):
     if request.method == 'POST':
 
         exercicios_clientes = ExerciciosCliente.objects.get(id=id)
-        request.session['id_return'] = exercicios_clientes.microciclo_id
+        micro = Microciclo.objects.get(id=exercicios_clientes.microciclo_id)
+        request.session['id_return'] = micro.mesociclo_id
 
         exercicios_clientes.exercicio = request.POST.get('exercicio')
         exercicios_clientes.series = request.POST.get('series')

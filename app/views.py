@@ -33,7 +33,7 @@ def home(request):
     return render(request, 'inicio/home.html', context)
 def treino(request):
 
-    Meso = Mesociclo.objects.all().last()
+    Meso = Mesociclo.objects.get(user_id=request.user)
     Micro = Microciclo.objects.filter(mesociclo__id = Meso.id)
     exercicios = ExerciciosCliente.objects.filter(microciclo__mesociclo = Meso)
 
