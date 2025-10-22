@@ -15,14 +15,17 @@ def inicio(request):
 
         if request.method == 'GET':
             
-            if request.user.groups is None:
+            if request.user.groups:
                 grupo = Group.objects.get(name = request.user.email)
                 usuarios = User.objects.filter(groups = grupo.id)
+                counter = usuarios.count()
             else:
                 usuarios=''
+                counter='0'
 
             context={
-                'usuarios':usuarios
+                'usuarios':usuarios,
+                'alunos':counter
             }
             return render(request, 'home/home.html', context)
             #return HttpResponse(request.user)
@@ -241,7 +244,7 @@ def register_cliente(request,id):
         cliente_group.save()
 
         messages.success(request, "Conta criada!")
-        return redirect('clientes')
+        return redirect('inicio')
     
 def cadastrar_senha(request, id):
     return render(request, 'gerenciar/password.html')

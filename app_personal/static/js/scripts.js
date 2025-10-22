@@ -1,5 +1,29 @@
 
 $(document).ready(function(){
+  const current = window.location.pathname.split('/')[2];
+   const links = document.querySelectorAll('#mobile-menu li a')
+
+   links.forEach(item =>{
+      let url = item.getAttribute('href').split('/')[2]
+      if(current == url){
+         item.classList.add('text-white')
+         item.classList.remove('text-cyan-900')
+      }
+      
+   })
+   
+
+   const rgAluno = document.getElementById('cadastro-aluno');
+   $('#fechar-rg-aluno').on('click',function(e){
+      e.preventDefault()
+      rgAluno.classList.add('hidden')
+   })
+   $('#abrir-rg-aluno').on('click',function(e){
+      e.preventDefault()
+      rgAluno.classList.remove('hidden')
+      
+   })
+
    $('#esconde-menu').on('click', function(e){
       e.preventDefault();
       

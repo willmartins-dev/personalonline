@@ -8,18 +8,7 @@ Clientes
 
 <section class="content w-full max-w-[900px] m-auto">
     <br>
-    <h1 class="text-white p-2 rounded-lg font-medium uppercase flex justify-center items-center"><i class="fa fa-users"></i>&nbsp;REGISTRAR Cliente</h1>
-    <form action="{% url 'register_cliente' user.id %}" method="post" class="flex flex-col justify-center gap-2 p-4">
-            
-            {% csrf_token %} 
-            <label class="text-white">Nome:</label>
-            <input type="text" name="first_name" class="p-2 rounded-full bg-white shadow-lg">
-            <label class="text-white">E-mail:</label>
-            <input type="email" name="email_cliente" class="p-2 rounded-full bg-white shadow-lg" value="">
-            <label class="text-white">Password:</label>
-            <input type="password" name="password" class="p-2 rounded-full bg-white shadow-lg">
-            <button type="submit" class="my-4 cursor-pointer bg-cyan-600 font-medium text-white rounded-full p-2 w-full max-w-[300px] m-auto shadow-lg"><i class="fa fa-handshake-o"></i>&nbsp;Registrar</button>
-        </form>
+    
     <h1 class="text-lg p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-500 text-white font-medium uppercase"><i class="fa fa-users m-2"></i>Clientes</h1>
     {% for u in usuarios %}
     {% if not u.is_superuser %}
