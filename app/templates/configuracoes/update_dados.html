@@ -7,10 +7,58 @@ Início
 {% if user %}
 
 <section class="content w-full max-w-[900px] m-auto my-4 p-4 text-white space-y-3">
-    <h1><i class="fa fa-address-card"></i>&nbsp;Atualizar dados</h1>
+    <div class="flex items-center justify-between  border-b-1 border-slate-700">
+        <h1 class="text-center py-2"><i class="fa fa-address-card"></i>&nbsp;Atualizar dados</h1>
+        <a href="{% url 'home' %}" class="uppercase"><i class="fa fa-arrow-left"></i>Voltar</a>
+    </div>
     <div class="">
-        <form>
-            
+               <form action="{% url 'update_dados' %}" method="post" class="text-gray-500 w-full flex flex-col justify-start space-y-3 p-4">
+            {% csrf_token %}
+            <div class="flex items-center justify-between">
+                <label class="block">Gênero:</label>
+                <a href="#" id="feminino" class="rounded hover:text-white p-2 bg-slate-300 hover:bg-pink-400 flex items-center justify-center"><i class="fa fa-venus fa-lg"></i>&nbsp;Feminino</a>
+                <a href="#" id="masculino" class="rounded p-2 hover:text-white bg-slate-300 hover:bg-cyan-400 flex items-center justify-center"><i class="fa fa-mars fa-lg"></i>&nbsp;Masculino</a>
+                <input type="hidden" id="gender" name="gender" value="{{dados.genero}}">
+                <script>
+                    const masculino_bt = document.getElementById('masculino')
+                    const feminino_bt = document.getElementById('feminino')
+                    const genero = document.getElementById('gender')
+                    console.log(genero)
+                    masculino_bt.addEventListener('click', function(e){
+                        e.preventDefault()
+                        genero.value = 'masculino'
+                        this.classList.remove('bg-slate-300')
+                        this.classList.add('bg-cyan-400')
+                        feminino_bt.classList.remove('bg-pink-400')
+                        feminino_bt.classList.add('bg-slate-300')
+                    })
+                    feminino_bt.addEventListener('click', function(e){
+                        e.preventDefault()
+                        genero.value = 'feminino'
+                         this.classList.remove('bg-slate-300')
+                        this.classList.add('bg-pink-400')
+                         masculino_bt.classList.remove('bg-cyan-400')
+                         masculino_bt.classList.add('bg-slate-300')
+                    })
+                </script>
+            </div>
+            <div>
+                <label class="block">Data de nascimento:</label>
+                <input type="date" required name="nascimento" class="bg-slate-300 p-3 rounded-full w-full" value="{{dados.data_nascimento|date:'Y-m-d'}}">
+            </div>
+            <div>
+                <label class="block">Celular:</label>
+                <input type="text" required name="celular" class="celular bg-slate-300 p-3 rounded-full w-full" placeholder="Ex: (15) 00000-0000" value="{{dados.celular}}">
+            </div>
+            <div>
+                <label class="block">Altura(cm):</label>
+                <input type="number" required name="altura" class="bg-slate-300 p-3 rounded-full w-full" placeholder="Ex: 175" value="{{dados.altura}}">
+            </div>
+            <div>
+                <label class="block">Peso(Kg):</label>
+                <input type="text" required name="peso" class="peso bg-slate-300 p-3 rounded-full w-full" placeholder="Ex: 65,5" value="{{dados.peso}}">
+            </div>
+            <button type="submit" class="cursor-pointer bg-green-500 text-white font-medium uppercase rounded-full p-3"><i class="fa fa-check"></i>&nbsp;Salvar dados</button>
         </form>
     </div>
 </section>

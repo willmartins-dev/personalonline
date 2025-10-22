@@ -6,11 +6,11 @@ Início
 {% block 'content'%}
 {% if user %}
 
-<section class="w-screen h-screen bg-gradient-to-b from-gray-200 to-gray-300 fixed flex justify-center">
+<section class="w-screen h-screen bg-white fixed flex justify-center z-10">
     <div id="form-dados-iniciais" class="w-full max-w-[500px] flex flex-col justify-center">
-        <h1 class="text-center text-4xl text-amber-700 my-2">{{personal}}</h1>
-        <h1 class="text-center my-2">Preencha as seguintes informações para o seu personal</h1>
-        <form action="{% url 'dados_iniciais' %}" method="post" class="w-full flex flex-col justify-start space-y-3 p-4">
+        <h1 class="text-center text-4xl text-amber-700 my-2">{{user.first_name}}</h1>
+        <h1 class="text-center my-2">Preencha as seguintes informações para o seu personal <span class="text-cyan-800">{{personal}}</span></h1>
+        <form action="{% url 'dados_iniciais' %}" method="post" class="text-blackw-full flex flex-col justify-start space-y-3 p-4">
             {% csrf_token %}
             <div>
                 <label class="block">Gênero:</label>
@@ -42,19 +42,25 @@ Início
             </div>
             <div>
                 <label class="block">Data de nascimento:</label>
-                <input type="date" name="nascimento" class="bg-slate-300 p-3 rounded-full w-full">
+                <input type="date" required name="nascimento" class="bg-slate-300 p-3 rounded-full w-full">
+            </div>
+            <div>
+                <label class="block">Celular:</label>
+                <input type="text" required name="celular" class="celular bg-slate-300 p-3 rounded-full w-full" placeholder="Ex: (15) 00000-0000">
             </div>
             <div>
                 <label class="block">Altura(cm):</label>
-                <input type="number" name="altura" class="bg-slate-300 p-3 rounded-full w-full" placeholder="Ex: 175">
+                <input type="number" required name="altura" class="bg-slate-300 p-3 rounded-full w-full" placeholder="Ex: 175">
             </div>
             <div>
                 <label class="block">Peso(Kg):</label>
-                <input type="number" name="peso" class="bg-slate-300 p-3 rounded-full w-full" placeholder="Ex: 65.5">
+                <input type="number" required name="peso" class="peso bg-slate-300 p-3 rounded-full w-full" placeholder="Ex: 65.5">
             </div>
-            <button type="submit" class="bg-green-500 text-white font-medium uppercase rounded-full p-3">Enviar dados</button>
+            <button type="submit" class="cursor-pointer bg-green-500 text-white font-medium uppercase rounded-full p-3">Enviar dados</button>
         </form>
     </div>
+    
 </section>
+
 {% endif %}
 {% endblock %}

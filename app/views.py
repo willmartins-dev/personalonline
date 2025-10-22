@@ -91,12 +91,37 @@ def dados_iniciais(request):
             altura = request.POST.get('altura'),
             peso = request.POST.get('peso'),
             genero = request.POST.get('gender'),
+            celular = request.POST.get('celular'),
         )
         update_dados.save()
         return redirect('home')
+def delete_some(request):
+    dados = DadosIniciais.objects.get(id=5)
+    dados.delete()
+
 def update_dados(request):
+    dados = DadosIniciais.objects.get(user_id=request.user)
     if request.method == 'GET':
-        return render(request, 'configuracoes/update_dados.html')
+
+        context={
+            'dados':dados
+        }
+
+        return render(request, 'configuracoes/update_dados.html', context)
+    
+    elif request.method == 'POST':
+
+        peso_antigo = request.POST.get('peso')
+        peso = peso_antigo.replace(',', '.')
+
+        dados.data_nascimento = request.POST.get('nascimento')
+        dados.celular = request.POST.get('celular')
+        dados.peso = peso
+        dados.altura = request.POST.get('altura')
+        dados.save()
+
+        return redirect('update_dados')
+
 
 def login_view(request):
     if request.method == 'POST':

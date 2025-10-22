@@ -1,12 +1,12 @@
 {% if user.is_authenticated == True %}
 <div id="configuracoes" class="hidden w-full h-screen bg-white fixed top-0 z-10">
         <div class="flex items-center justify-between p-4 border-b-1 border-slate-400 text-slate-700">
-            <h1 class="text-lg"><i class="fa fa-gear fa-lg"></i>&nbsp;Configurações</h1>
+            <h1 class="text-lg"><i class="fa fa-address-card fa-lg"></i>&nbsp;Dados pessoais</h1>
             <a href="#" id="close-config" class=""><i class="fa fa-close fa-2x"></i></a>
         </div>
-        <div class="flex flex-col items-center justify-center w-full">
+        <div class="flex flex-col items-center justify-center w-full text-gray-700">
             <a href="{% url 'update_dados' %}" class="p-4 w-full border-b-1 border-slate-400 border-dashed uppercase font-medium">
-                <i class="fa fa-address-card"></i>&nbsp;Atualizar Dados pessoais
+                <i class="fa fa-user"></i>&nbsp;Atualizar Dados pessoais
             </a>
              <a href="senha_update" class="p-4 w-full border-b-1 border-slate-400 border-dashed uppercase font-medium">
                 <i class="fa fa-unlock-alt"></i>&nbsp;Atualizar senha
@@ -35,7 +35,7 @@
         </li>
         <li>
             <a href="#" id="open-config" class="text-gray-600 p-2 rounded-md px-2 ">
-                <i class="fa fa-gear fa-2x"></i>
+                <i class="fa fa-address-card fa-2x"></i>
             </a>
         </li>
         <li>

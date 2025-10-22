@@ -8,8 +8,8 @@ Início
 <h1 class="text-center text-lg border-b-1 border-slate-600 p-4 text-slate-200">DASHBOARD</h1>
 <section class="content w-full max-w-[900px] m-auto my-4 p-4 text-white space-y-3">
     <div class="flex items-center justify-between">
-        <h1>Olá, {{user.first_name}}</h1>
-        <a href="{% url 'logout' %}" class="bg-red-500 p-1 rounded-full"><i class="fa fa-sign-out"></i> LOGOUT</a>
+        <h1 class="text-amber-400">Olá, {{user.first_name}}</h1>
+        <a href="{% url 'logout' %}" class="bg-red-500 py-1 px-3 rounded-full"><i class="fa fa-sign-out"></i> Sair</a>
     </div>
     <div class="flex flex-wrap items-center justify-between my-4">
         <div class="bg-gradient-to-b from-gray-200 to-gray-400 w-26 h-26 rounded flex flex-col items-center justify-center text-slate-900">
@@ -43,7 +43,7 @@ Início
         <div class="bg-white text-slate-900 text-center rounded-2xl p-4 space-y-4">
             <i class="fa fa-exclamation-triangle fa-2x text-orange-400"></i>
             <p class="">Responda honestamente a Anamnese para que possamos alcançar juntos seu objetivo!</p>
-            <a href="{% url 'anamnese' %}" class="bg-amber-600 p-2 rounded-full uppercase font-medium">Responder agora!</a>
+            <a href="{% url 'anamnese' %}" class="bg-amber-400 py-2 px-4 rounded-full uppercase font-medium">Responder agora!</a>
         </div>
     {% endif %}
 </section>

@@ -6,6 +6,7 @@ import datetime
 class DadosIniciais(models.Model):
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     data_nascimento = models.DateField(blank=True)
+    celular = models.CharField(blank=True)
     altura = models.IntegerField(blank=True)
     peso = models.FloatField(blank=True)
     genero = models.CharField(max_length=255, blank=True)

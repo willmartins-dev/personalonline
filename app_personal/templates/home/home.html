@@ -18,7 +18,7 @@ Início
     </div>
 </section>
 <section class="container p-2 flex relative gap-4">
-    <div class="w-full h-screen fixed bg-white top-0 left-0 p-4 hidden " id="cadastro-aluno">
+    <div class="w-full h-screen fixed bg-white top-0 left-0 p-4 hidden z-8" id="cadastro-aluno">
 
         <h1 class="p-2 rounded-lg font-medium uppercase flex justify-center items-center text-gray-600 text-lg"><i class="fa fa-users"></i>&nbsp;REGISTRAR Cliente</h1>
     <form action="{% url 'register_cliente' user.id %}" method="post" class="flex flex-col justify-center gap-2 p-4">
@@ -36,7 +36,8 @@ Início
             </div>
         </form>
         <p>
-            Após o cadastro envie o link de login do cliente
+            Após o cadastro envie o link de login para que seu aluno termine de fazer o cadastro!
+            <span class="text-green-600">Clique no link de whatsapp na "Home" ou em "Clientes"</span>
         </p>
     </div>
     <div class="w-full bg-gradient-to-b from-cyan-500 to-cyan-800 rounded p-2 text-white shadown-md space-y-4 text-center">
