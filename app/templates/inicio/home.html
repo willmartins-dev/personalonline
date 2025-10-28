@@ -6,9 +6,9 @@ Início
 {% block 'content'%}
 {% if user %}
 <h1 class="text-center text-lg border-b-1 border-slate-600 p-4 text-slate-200">DASHBOARD</h1>
-<section class="content w-full max-w-[900px] m-auto my-4 p-4 text-white space-y-3">
-    <div class="flex items-center justify-between">
-        <h1 class="text-amber-400">Olá, {{user.first_name}}</h1>
+<section class="content w-full max-w-[900px] m-auto my-2 p-4 text-white space-y-3 ">
+    <div class="flex items-center justify-between bg-slate-500 p-2 rounded-full">
+        <h1 class="text-slate-900"><i class="fa fa-user"></i>&nbsp;Olá, {{user.first_name}}</h1>
         <a href="{% url 'logout' %}" class="bg-red-500 py-1 px-3 rounded-full"><i class="fa fa-sign-out"></i> Sair</a>
     </div>
     <div class="flex flex-wrap items-center justify-between my-4">
@@ -16,6 +16,7 @@ Início
             <i class="fa fa-child fa-lg"></i>
             <p class="font-medium">Peso Atual</p>
             <p>{{dados_iniciais.peso}}Kg</p>
+            
         </div>
         <div class="bg-gradient-to-b from-gray-200 to-gray-400 w-26 h-26 rounded flex flex-col items-center justify-center text-slate-900">
             <i class="fa fa-tint fa-lg"></i>

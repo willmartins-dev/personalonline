@@ -7,7 +7,8 @@ from django.contrib import messages
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from .models import CategoriaExercicios, Exercicios, Mesociclo, Microciclo, ExerciciosCliente
-import json
+from app.models import DadosIniciais
+import re
 
 
 def inicio(request):
@@ -16,19 +17,25 @@ def inicio(request):
         if request.method == 'GET':
             
             if request.user.groups:
-                grupo = Group.objects.get(name = request.user.email)
-                usuarios = User.objects.filter(groups = grupo.id)
+
+                usuarios = User.objects.filter(groups__name = request.user.email)
+                dados = DadosIniciais.objects.select_related('user_id').all()
                 counter = usuarios.count()
+
+                   
+
             else:
                 usuarios=''
                 counter='0'
 
             context={
                 'usuarios':usuarios,
-                'alunos':counter
+                'alunos':counter,
+                'dados':dados,
+                
             }
             return render(request, 'home/home.html', context)
-            #return HttpResponse(request.user)
+            #return HttpResponse()
     else:
 
         return redirect('login_personal')

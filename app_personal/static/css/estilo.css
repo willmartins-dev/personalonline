@@ -11,6 +11,11 @@ h1, h2, h3,h4,h5{
    font-family: "Roboto", sans-serif;
    font-weight: 300;
 }
+a{
+  font-family: "Roboto", sans-serif;
+   font-weight: 300;
+}
+
 @keyframes slide-from-left {
   0% {
     transform: translateX(-100%); /* Start off-screen to the left */

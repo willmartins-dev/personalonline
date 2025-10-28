@@ -14,33 +14,36 @@
 
         </div>
 </div>
-<nav class="w-full bg-white p-4 fixed bottom-0 left-0 z-9">
+<nav class="w-full bg-white p-2 fixed bottom-0 left-0 z-9">
     <ul class="flex flex-wrap items-center justify-between gap-2">
         <li>
             <a href="{% url 'home' %}" class="text-gray-600 p-2 rounded-md px-2 ">
-                <i class="fa fa-home fa-2x"></i>
+                <i class="fa fa-home fa-lg"></i>
             </a>
         </li>
         <li>
             <a href="{% url 'home' %}" class="text-gray-600 p-2 rounded-md px-2 ">
-                <i class="fa fa-tachometer fa-2x"></i>
+                <i class="fa fa-tachometer fa-lg"></i>
             </a>
         </li>
-         <li class="relative w-10 h-10">
-            <a href="{% url 'treino' %}" class="text-slate-800 text-center p-3 bg-amber-400 absolute -top-7 -left-4 rounded-full border border-5">
-                <i class="fa fa-heartbeat animate-pulse fa-2x "></i>
-                <span> Treinar</span>
+         <li class="bg-amber-400 rounded-full px-3 py-2">
+            <a href="{% url 'treino' %}" class="text-slate-800 text-center rounded-full flex flex-col items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 590" class="animate-pulse size-8">
+                    <!--!Font Awesome Free v7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.-->
+                    <path d="M96 176C96 149.5 117.5 128 144 128C170.5 128 192 149.5 192 176L192 288L448 288L448 176C448 149.5 469.5 128 496 128C522.5 128 544 149.5 544 176L544 192L560 192C586.5 192 608 213.5 608 240L608 288C625.7 288 640 302.3 640 320C640 337.7 625.7 352 608 352L608 400C608 426.5 586.5 448 560 448L544 448L544 464C544 490.5 522.5 512 496 512C469.5 512 448 490.5 448 464L448 352L192 352L192 464C192 490.5 170.5 512 144 512C117.5 512 96 490.5 96 464L96 448L80 448C53.5 448 32 426.5 32 400L32 352C14.3 352 0 337.7 0 320C0 302.3 14.3 288 32 288L32 240C32 213.5 53.5 192 80 192L96 192L96 176z"/>
+                </svg>
+                Treinar
             </a>
             
         </li>
         <li>
             <a href="#" id="open-config" class="text-gray-600 p-2 rounded-md px-2 ">
-                <i class="fa fa-address-card fa-2x"></i>
+                <i class="fa fa-address-card fa-lg"></i>
             </a>
         </li>
         <li>
             <a href="{% url 'home' %}" class="text-gray-600 p-2 rounded-md px-2 ">
-                <i class="fa fa-bell fa-2x"></i>
+                <i class="fa fa-bell fa-lg"></i>
             </a>
         </li>
     </ul>

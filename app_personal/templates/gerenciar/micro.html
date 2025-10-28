@@ -7,7 +7,7 @@ Treinos
 
 <div id="modal" class="flex items-center bg-slate-900/70 w-full h-full fixed top-0 hidden z-10">
 
-    <div id="busca" class="bg-white p-4 w-full max-w-[94%] m-auto space-y-4 rounded-2xl">
+    <div id="busca" class="bg-white p-4 h-[100%] w-full max-w-[94%] m-auto space-y-4 rounded-2xl">
         <a href="#" class="fechar">
             <i class="fa fa-close"></i>
         </a>
@@ -15,7 +15,7 @@ Treinos
             <i class="fa fa-search absolute top-2 right-2"></i>
             <input type="text" name="busca" id="input-busca" data-id="" data-url="{% url 'buscar_exercicio' %}" class=" bg-slate-300 w-full p-1 rounded-2xl" placeholder="Digite sua busca ex: peito, costas ,quadriceps....">
         </div>
-        <div class="resultado-busca flex flex-col items-center  border-solid border-t-1 py-3">
+        <div class="resultado-busca flex flex-col items-center  border-solid border-t-1 py-3 overflow-y-scroll h-full">
             <div class="">Aguardando pesquisa&nbsp;<i class="fa fa-arrow-up animate-bounce"></i></div>
         </div>
     </div>
@@ -82,4 +82,5 @@ Treinos
 
     </div>
 </section>
+<br><br><br><br><br><br>
 {% endblock %}

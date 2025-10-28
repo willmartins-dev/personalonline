@@ -6,13 +6,14 @@ from django.contrib import messages
 from django.urls import reverse
 from .models import DadosIniciais
 from .forms import AnamneseForm
+import re
 
 def index(request):
     return render(request, 'publico/index.html')
 
 def home(request):
     user_auth = request.user.is_authenticated
-    user_id = request.user
+    user_id = request.user.id
     user_group = request.user.groups.all()
     
     if not user_auth:
@@ -91,10 +92,11 @@ def dados_iniciais(request):
             altura = request.POST.get('altura'),
             peso = request.POST.get('peso'),
             genero = request.POST.get('gender'),
-            celular = request.POST.get('celular'),
+            celular = re.sub(r'\D', '',request.POST.get('celular')),
         )
         update_dados.save()
         return redirect('home')
+    
 def delete_some(request):
     dados = DadosIniciais.objects.get(id=5)
     dados.delete()
