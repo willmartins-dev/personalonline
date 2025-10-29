@@ -6,44 +6,54 @@ Personal App - Gerenciamento para personal trainer
 {% endblock %}
 
 {% block 'content'%}
-<section class="lg:h-[600px] p-4 flex flex-wrap items-center justify-center md:justify-between bg-gradient-to-b from-slate-500 to-slate-900">
-    <div class="flex flex-col items-center my-4">
-    <h1 class="text-3xl text-white text-center m-5 slide-left">
-        <span class="text-amber-400 text-4xl">PersonalApp,</span> chegou!
-        <br>
-       Personal trainer gerencie seus alunos <span class="text-amber-400 text-4xl">gratuitamente!</span>
-    </h1>
+<section class="lg:h-[600px] p-4 flex flex-wrap items-center justify-center md:justify-between bg-gradient-to-b from-gray-800 to-black space-y-5">
+    <div class="flex flex-col items-center container m-auto ">
+        <h1 class="text-4xl text-white text-center m-5 slide-left uppercase ">
+            <span class="text-green-400 text-2xl">Personal Trainer</span><br>Willian Martins!
+        </h1>
+
+        <div class="flex flex-col justify-center items-center space-y-4 text-white animated-zoom my-5 relative">
+            <figure class="relative rounded-full overflow-hidden shadow-lg">
+                <img src="{% static 'img/will.jpg' %}" class="size-76">
+               
+            </figure>
+             
+        </div>
+        
         <div class="flex items-center gap-4">
-            <a href="{%url 'register_personal'%}" class="hover:bg-slate-400 bg-amber-400 text-slate-900 p-2 rounded uppercase font-medium shadow-lg ">
-                <i class="fa fa-user-plus"></i>
-                Registrar-se
-            </a>
             <a href="{%url 'login_personal'%}" class="hover:bg-slate-400 bg-white text-slate-900 p-2 rounded uppercase font-medium shadow-lg">
                 <i class="fa fa-sign-in"></i>
-                Entrar
+                Entrar no App
             </a>
         </div>
+        <br>
     </div>
-    <div class="flex flex-col justify-center items-center space-y-4 text-white animated-zoom my-5">
-        <figure class="relative bg-cyan-500 rounded-full overflow-hidden shadow-lg">
-            <img src="{% static 'img/mulher-personal.png' %}" class="size-96">
+    <div class="flex flex-col my-4 space-y-4 container m-auto ">
+       <h1 class="text-green-400 text-2xl">Sua Transformação Começa Agora: Consultoria Online de Personal Trainer</h1>
+       <p class="text-white">Cansado de treinar sem resultados ou sem saber se está no caminho certo? Com a minha Consultoria Online, você terá a estrutura e o acompanhamento de um Personal Trainer profissional na palma da sua mão, onde quer que esteja!</p>
+       <a href="{%url 'register_personal'%}" class="text-center hover:bg-white bg-green-400 text-slate-900 p-2 rounded uppercase font-medium shadow-lg ">
+            <i class="fa fa-user-plus"></i>
+            Quero entrar para o time
+        </a>
+        <br>
+    </div>
+    <div class="space-y-5 container m-auto text-center relative">
+        <h1 class="text-green-400 text-2xl  text-start">Como Funciona Nossa Consultoria Online?</h1>
+        <p class="text-white">Nosso serviço foi desenhado para ser eficaz, flexível e totalmente personalizado para os seus objetivos e a sua rotina. Veja como unimos a tecnologia e a ciência do treinamento para maximizar seus resultados:</p>
+        <figure class="relative overflow-hidden rounded-full w-86 h-86 slide-left m-auto my-4">
+            <img src="{% static 'img/app_academia.jpg' %}" class="absolute -top-38">
+            
         </figure>
         
+        <h2 class="text-green-400 text-2xl  text-start">Seu Treino no Seu Bolso:<br>O Web App Exclusivo</h2>
+        <p class="text-white">Esqueça as planilhas perdidas ou os PDFs estáticos. Você terá acesso ao seu Plano de Treino completo através de um Web App intuitivo e exclusivo:</p>
+        <ul class="text-white space-y-4 text-start list-disc pl-4">
+            <li><span class="font-bold">Acesso Imediato:</span> O seu treino estará disponível 24 horas por dia, 7 dias por semana, em qualquer dispositivo (celular, tablet ou computador).</li>
+            <li><span class="font-bold">Instruções Claras:</span> Cada exercício vem acompanhado de descrições detalhadas e GIFs demonstrativos para garantir a execução.</li>
+            <li><span class="font-bold">Flexibilidade:</span> Podemos adaptar seu treino com agilidade caso haja mudanças na sua rotina ou disponibilidade de equipamentos.</li>
+        </ul>
+        <br><br><br>
     </div>
     
-       
-</section>
-<br>
-<section class="container m-auto flex flex-wrap items-center justify-center space-y-4 p-2">
-      <div>
-        <h1 class="text-3xl text-white">Para quem é o personalapp ?</h1><br>
-        <p class="text-white">Nossa meta é ajudar você que acabou de se formar a ingressar na área de Personal Trainer e consultor online, com <span class="text-amber-400 uppercase">nenhum</span> investimento (aceitamos doações para manter o App, mas se você quiser) pois sabemos que o começo pode ser difícil! Mas estamos aqui para te ajudar a começar sua carreira de Personal trainer e consultor, ajudaremos a gerenciar seus alunos, treinos e avaliação física!</p>
-    </div>
-    <div>
-        <figure class="rounded-full overflow-hidden shadow-lg">
-            <img src="{% static 'img/personal.jpg' %}" class="size-96">
-        </figure>
-    </div>
-  
 </section>
 {% endblock %}

@@ -1,0 +1,49 @@
+
+{% extends 'base_principal/base.html' %}
+{%load static%}
+{% block 'title'%}
+Personal App - Gerenciamento para personal trainer
+{% endblock %}
+
+{% block 'content'%}
+<section class="lg:h-[600px] p-4 flex flex-wrap items-center justify-center md:justify-between bg-gradient-to-b from-slate-500 to-slate-900">
+    <div class="flex flex-col items-center my-4">
+    <h1 class="text-3xl text-white text-center m-5 slide-left">
+        <span class="text-amber-400 text-4xl">PersonalApp,</span> chegou!
+        <br>
+       Personal trainer gerencie seus alunos <span class="text-amber-400 text-4xl">gratuitamente!</span>
+    </h1>
+        <div class="flex items-center gap-4">
+            <a href="{%url 'register_personal'%}" class="hover:bg-slate-400 bg-amber-400 text-slate-900 p-2 rounded uppercase font-medium shadow-lg ">
+                <i class="fa fa-user-plus"></i>
+                Registrar-se
+            </a>
+            <a href="{%url 'login_personal'%}" class="hover:bg-slate-400 bg-white text-slate-900 p-2 rounded uppercase font-medium shadow-lg">
+                <i class="fa fa-sign-in"></i>
+                Entrar
+            </a>
+        </div>
+    </div>
+    <div class="flex flex-col justify-center items-center space-y-4 text-white animated-zoom my-5">
+        <figure class="relative bg-cyan-500 rounded-full overflow-hidden shadow-lg">
+            <img src="{% static 'img/mulher-personal.png' %}" class="size-96">
+        </figure>
+        
+    </div>
+    
+       
+</section>
+<br>
+<section class="container m-auto flex flex-wrap items-center justify-center space-y-4 p-2">
+      <div>
+        <h1 class="text-3xl text-white">Para quem é o personalapp ?</h1><br>
+        <p class="text-white">Nossa meta é ajudar você que acabou de se formar a ingressar na área de Personal Trainer e consultor online, com <span class="text-amber-400 uppercase">nenhum</span> investimento (aceitamos doações para manter o App, mas se você quiser) pois sabemos que o começo pode ser difícil! Mas estamos aqui para te ajudar a começar sua carreira de Personal trainer e consultor, ajudaremos a gerenciar seus alunos, treinos e avaliação física!</p>
+    </div>
+    <div>
+        <figure class="rounded-full overflow-hidden shadow-lg">
+            <img src="{% static 'img/personal.jpg' %}" class="size-96">
+        </figure>
+    </div>
+  
+</section>
+{% endblock %}
