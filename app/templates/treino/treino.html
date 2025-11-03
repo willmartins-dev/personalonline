@@ -21,33 +21,16 @@ Início
         </div>
        
     </div>
-    {% for t in micro %}
-            <div class="flex flex-col bg-gray-200 text-slate-900 p-2 space-y-3">
-            <h1 class="text-center my-2 text-white bg-slate-900 rounded p-1">{{t.titulo}}</h1>
-                {% for e in exercicios %}
-                    {% if e.microciclo_id == t.id %}
-                    <div class="uppercase flex flex-col justify-between">
-                         <p class="font-medium p-1 rounded my-2">{{e.exercicio}}</p>
-                         <div class="flex items-center justify-center space-x-2">
-                            <figure class="w-50 h-50 bg-white rounded p-1 shadow-md">
-                                <img src="{{e.url_img}}" >
-                            </figure>
-                        
-                            <p class="p-1 flex flex-col items-center bg-white rounded shadow-md">
-                                <span class="text-3xl">{{e.series}}</span><span>Séries</span>
-                            </p> 
-                            <p class="p-1 flex flex-col items-center bg-white rounded shadow-md">
-                                <span class="text-3xl">{{e.reps}}</span><span>Reps</span>
-                            </p>
-                        </div>
-                        
-                    </div>
-                    <p class="bg-white p-1 rounded text-orange-600">Obs: {{e.obs}}</p>
-                    <hr class="border-b-1 border-gray-400">
-                    {% endif %}
-                {% endfor %}
-            </div>
-    {% endfor %}
+      <div class="gap-5 flex flex-wrap items-center">
+        {% for t in micro %}
+    
+                <div class="bg-gray-200 text-slate-900 p-2 rounded">
+                    <h1 class="text-center my-2 text-white bg-slate-900 rounded p-1">{{t.titulo}}</h1>
+                    <a href="{% url 'comecar' t.id %}" data-id="{{t.id}}" class="flex justify-center items-center bg-amber-600 font-medium text-white p-2 hover:text-amber-900 hover:bg-amber-400 rounded"><i class="fa fa-play mx-2"></i>Começar</a>
+                </div>
+    
+        {% endfor %}
+     </div>
     {% else %}
         <div class="bg-white text-slate-900 text-center rounded-2xl p-4 space-y-3">
             <h1 class="">Responda a Anamnese honestamente para que possamos alcançar juntos seu objetivo!</h1>

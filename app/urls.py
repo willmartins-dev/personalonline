@@ -11,6 +11,7 @@ urlpatterns = [
     path('update-dados/', views.update_dados, name='update_dados'),
     path('anamnese/', views.anamnese, name='anamnese'),
     path('treino/', views.treino, name='treino'),
+    path('comecar/<int:id>', views.comecar, name='comecar'),
     path('delete_some/', views.delete_some, name='delete_some'),
     
 ]

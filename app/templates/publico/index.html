@@ -14,30 +14,31 @@ Personal App - Gerenciamento para personal trainer
 
         <div class="flex flex-col justify-center items-center space-y-4 text-white animated-zoom my-5 relative">
             <figure class="relative rounded-full overflow-hidden shadow-lg">
-                <img src="{% static 'img/will.jpg' %}" class="size-76">
+                <img src="{% static 'img/will4.jpg' %}" class="size-76">
                
             </figure>
              
         </div>
         
         <div class="flex items-center gap-4">
-            <a href="{%url 'login_personal'%}" class="hover:bg-slate-400 bg-white text-slate-900 p-2 rounded uppercase font-medium shadow-lg">
+            <a href="{%url 'login_view'%}" class="hover:bg-slate-400 bg-white text-slate-900 p-2 rounded uppercase font-medium shadow-lg">
                 <i class="fa fa-sign-in"></i>
                 Entrar no App
             </a>
         </div>
         <br>
     </div>
-    <div class="flex flex-col my-4 space-y-4 container m-auto ">
+    <div class="flex flex-col my-4 space-y-4 container m-auto px-3">
        <h1 class="text-green-400 text-2xl">Sua Transformação Começa Agora: Consultoria Online de Personal Trainer</h1>
        <p class="text-white">Cansado de treinar sem resultados ou sem saber se está no caminho certo? Com a minha Consultoria Online, você terá a estrutura e o acompanhamento de um Personal Trainer profissional na palma da sua mão, onde quer que esteja!</p>
-       <a href="{%url 'register_personal'%}" class="text-center hover:bg-white bg-green-400 text-slate-900 p-2 rounded uppercase font-medium shadow-lg ">
+       <br>
+       <a href="{%url 'register_personal'%}" class="text-center hover:bg-green-400 bg-white text-slate-900 p-2 rounded uppercase font-medium shadow-lg ">
             <i class="fa fa-user-plus"></i>
             Quero entrar para o time
         </a>
         <br>
     </div>
-    <div class="space-y-5 container m-auto text-center relative">
+    <div class="space-y-5 container m-auto text-center relative px-3">
         <h1 class="text-green-400 text-2xl  text-start">Como Funciona Nossa Consultoria Online?</h1>
         <p class="text-white">Nosso serviço foi desenhado para ser eficaz, flexível e totalmente personalizado para os seus objetivos e a sua rotina. Veja como unimos a tecnologia e a ciência do treinamento para maximizar seus resultados:</p>
         <figure class="relative overflow-hidden rounded-full w-86 h-86 slide-left m-auto my-4">
@@ -47,13 +48,18 @@ Personal App - Gerenciamento para personal trainer
         
         <h2 class="text-green-400 text-2xl  text-start">Seu Treino no Seu Bolso:<br>O Web App Exclusivo</h2>
         <p class="text-white">Esqueça as planilhas perdidas ou os PDFs estáticos. Você terá acesso ao seu Plano de Treino completo através de um Web App intuitivo e exclusivo:</p>
-        <ul class="text-white space-y-4 text-start list-disc pl-4">
+        <ul class="text-white space-y-4 text-start list-disc pl-4 ">
             <li><span class="font-bold">Acesso Imediato:</span> O seu treino estará disponível 24 horas por dia, 7 dias por semana, em qualquer dispositivo (celular, tablet ou computador).</li>
             <li><span class="font-bold">Instruções Claras:</span> Cada exercício vem acompanhado de descrições detalhadas e GIFs demonstrativos para garantir a execução.</li>
             <li><span class="font-bold">Flexibilidade:</span> Podemos adaptar seu treino com agilidade caso haja mudanças na sua rotina ou disponibilidade de equipamentos.</li>
         </ul>
-        <br><br><br>
+        <br>
     </div>
-    
+    <div class="flex items-center justify-center w-full h-[250px] bg-[url('{% static 'img/evolution.jpg' %}')] bg-cover bg-center bg-no-repeat rounded-2xl">
+        <h1 class="p-4 uppercase text-4xl text-white text-center bg-black/50 w-full h-full flex items-center justify-center ">Acompanhe seu progresso </h1>
+    </div>
+    <div>
+        <br><br>
+    </div>
 </section>
 {% endblock %}

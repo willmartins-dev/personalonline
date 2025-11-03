@@ -1,0 +1,67 @@
+{% extends 'base/base.html' %}
+{% block 'title'%}
+Início
+{% endblock %}
+
+{% block 'content'%}
+{% if user %}
+<h1 class="text-center text-lg border-b-1 border-slate-600 p-4 text-slate-200">TREINO</h1>
+<section class="content w-full max-w-[900px] m-auto my-4 p-4 text-white space-y-3">
+    <div class="flex items-center justify-between">
+        <h1>Olá, {{user.first_name}}</h1>
+        <a href="{% url 'logout' %}" class="bg-red-500 p-1 rounded-full"><i class="fa fa-sign-out"></i> LOGOUT</a>
+    </div>
+
+    {% if meso %}
+    <div class="bg-white p-3 rounded-lg text-amber-900 shadow-md">
+        <div class="flex items-center justify-between ">
+            <h2 class="font-medium uppercase text-slate-900"><i class="fa fa-heartbeat"></i>&nbsp;{{meso.titulo}}</h2>     
+            <p>Final: {{meso.duracao}}</p>
+            
+        </div>
+       
+    </div>
+    {% for t in micro %}
+            <div class="flex flex-col bg-gray-200 text-slate-900 p-2 space-y-3">
+            <h1 class="text-center my-2 text-white bg-slate-900 rounded p-1">{{t.titulo}}</h1>
+                {% for e in exercicios %}
+                    {% if e.microciclo_id == t.id %}
+                    <div class="uppercase flex flex-col justify-between">
+                         <p class="font-medium p-1 rounded my-2">{{e.exercicio}}</p>
+                         <div class="flex flex-wrap items-center justify-center space-x-2">
+                            <figure class="w-40 h-40 bg-white rounded p-1 shadow-md">
+                                <img src="{{e.url_img}}" >
+                            </figure>
+                        
+                            <p class="p-1 flex flex-col items-center bg-white rounded shadow-md">
+                                <span class="text-2xl">{{e.series}}</span><span>Séries</span>
+                            </p> 
+                            <p class="p-1 flex flex-col items-center bg-white rounded shadow-md lowercase">
+                                <span class="text-2xl">{{e.reps}}</span><span>Reps</span>
+                            </p>
+                            <p class="w-full my-3 flex">
+                                <form>
+                                    <label class="font-bold lowercase">Carga do exercício:</label>
+                                    <input type="number" placeholder="(Ex:100) Apenas números" class="w-full text-white bg-slate-400 p-2 m-2">
+                                    <button type="submit" class="cursor-pointer text-white bg-green-500 rounded-full px-3 py-2"><i class="fa fa-check"></i>Cadastrar carga</button>
+                                </form>
+                            </p>
+                        </div>
+                         
+                    </div>
+                    <p class="bg-white p-1 rounded text-orange-600">Obs: {{e.obs}}</p>
+                    <hr class="border-b-1 border-gray-400">
+                    {% endif %}
+                {% endfor %}
+            </div>
+    {% endfor %}
+    {% else %}
+        <div class="bg-white text-slate-900 text-center rounded-2xl p-4 space-y-3">
+            <h1 class="">Responda a Anamnese honestamente para que possamos alcançar juntos seu objetivo!</h1>
+            <a href="{% url 'anamnese' %}" class="bg-amber-600 p-2 rounded-full uppercase font-medium">Responder agora!</a>
+        </div>
+    {% endif %}
+</section>
+<br><br><br><br>
+{% endif %}
+{% endblock %}

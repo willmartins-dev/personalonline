@@ -1,0 +1,41 @@
+{% extends 'base/base.html' %}
+{% block 'title'%}
+Início
+{% endblock %}
+
+{% block 'content'%}
+{% if user %}
+<h1 class="text-center text-lg border-b-1 border-slate-600 p-4 text-slate-200">TREINO</h1>
+<section class="content w-full max-w-[900px] m-auto my-4 p-4 text-white space-y-3">
+    <div class="flex items-center justify-between">
+        <h1>{{micro.titulo}}</h1>
+        <a href="{% url 'treino' %}" class="p-1"><i class="fa fa-arrow-left"></i> Voltar</a>
+    </div>
+
+    {% if treino %}
+        {% for e in treino%}
+            <div class="bg-slate-200 text-slate-900 flex">
+                
+                <figure class="w-40 h-40">
+                    <img src="{{e.url_img}}">
+                </figure>
+                <div class="p-2 space-y-2">
+                    <h1>{{e.exercicio}}</h1>
+                    <p class="p-1 rounded bg-white font-medium">{{e.series}} Séries</p>
+                    <p class="p-1 rounded bg-white font-medium">{{e.reps}} Reps</p>
+                    <p>{{e.obs}}</p>
+                </div>
+
+
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="bg-white text-slate-900 text-center rounded-2xl p-4 space-y-3">
+            <h1 class="">Responda a Anamnese honestamente para que possamos alcançar juntos seu objetivo!</h1>
+            <a href="{% url 'anamnese' %}" class="bg-amber-600 p-2 rounded-full uppercase font-medium">Responder agora!</a>
+        </div>
+    {% endif %}
+</section>
+<br><br><br><br>
+{% endif %}
+{% endblock %}

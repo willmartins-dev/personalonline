@@ -53,6 +53,19 @@ def treino(request):
     }
 
     return render(request,'treino/treino.html', context)
+def comecar(request, id):
+
+    if request.method == 'GET':
+        treino = ExerciciosCliente.objects.filter(microciclo_id=id)
+        microciclo = Microciclo.objects.get(id=id)
+
+        context = {
+            'treino':treino,
+            'micro':microciclo
+        }
+
+    return render(request, 'treino/comecar.html',context)
+
 def anamnese(request):
 
     if request.method == 'POST':
