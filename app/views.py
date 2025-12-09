@@ -35,6 +35,23 @@ def home(request):
             'tmb':dados_iniciais.calc_kcal()
         }
         return render(request, 'inicio/home.html', context)
+def treino_micro(request, id):
+
+    user_auth = request.user.is_authenticated
+
+    if not user_auth:
+        return redirect('login_view')
+
+    Micro = Microciclo.objects.filter(mesociclo_id = id)
+    exercicios = ExerciciosCliente.objects.filter(microciclo_id = id)
+
+    context={
+        'micro':Micro,
+        'exercicios':exercicios
+    }
+
+    return render(request,'treino/treino-micro.html', context)
+
 def treino(request):
 
     user_auth = request.user.is_authenticated
@@ -42,14 +59,10 @@ def treino(request):
     if not user_auth:
         return redirect('login_view')
 
-    Meso = Mesociclo.objects.get(user_id=request.user)
-    Micro = Microciclo.objects.filter(mesociclo__id = Meso.id)
-    exercicios = ExerciciosCliente.objects.filter(microciclo__mesociclo = Meso)
-
+    Meso = Mesociclo.objects.filter(user_id=request.user)
+    
     context={
-        'meso':Meso,
-        'micro':Micro,
-        'exercicios':exercicios
+        'meso':Meso
     }
 
     return render(request,'treino/treino.html', context)
@@ -129,6 +142,7 @@ def update_dados(request):
         peso_antigo = request.POST.get('peso')
         peso = peso_antigo.replace(',', '.')
 
+        dados.genero = request.POST.get('genero')
         dados.data_nascimento = request.POST.get('nascimento')
         dados.celular = request.POST.get('celular')
         dados.peso = peso
@@ -163,7 +177,7 @@ def logout_view(request):
     logout(request)
     return redirect('login_view')
 
-def register(request):
+def pre_cadastro(request):
     if request.method == 'POST':
         first_name = request.POST['first_name']
         email=request.POST['email']

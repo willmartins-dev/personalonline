@@ -27,12 +27,13 @@ class Mesociclo(models.Model):
 
     def __str__(self):
         return self.titulo
+    
 class Microciclo(models.Model):
-    mesociclo = models.ForeignKey(Mesociclo, on_delete=models.CASCADE)
+    mesociclo = models.ForeignKey(Mesociclo, on_delete=models.CASCADE, related_name='microciclo')
     titulo = models.CharField(max_length=255)
 
 class ExerciciosCliente(models.Model):
-    microciclo = models.ForeignKey(Microciclo, on_delete=models.CASCADE)
+    microciclo = models.ForeignKey(Microciclo, on_delete=models.CASCADE, related_name='exercicios')
     exercicio = models.CharField(max_length=255)
     url_img = models.TextField(blank=True)
     series = models.CharField(max_length=255)

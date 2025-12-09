@@ -153,6 +153,7 @@ def update_exercicios_cliente(request,id):
 def delete_mesociclo(request, id):
     mesociclo = Mesociclo.objects.get(id=id)
     request.session['id_user'] = mesociclo.user_id
+
     mesociclo.delete()
     
     return redirect('treinamento',id=request.session['id_user'])

@@ -18,12 +18,12 @@ Início
                 <label class="block">Gênero:</label>
                 <a href="#" id="feminino" class="rounded hover:text-white p-2 bg-slate-300 hover:bg-pink-400 flex items-center justify-center"><i class="fa fa-venus fa-lg"></i>&nbsp;Feminino</a>
                 <a href="#" id="masculino" class="rounded p-2 hover:text-white bg-slate-300 hover:bg-cyan-400 flex items-center justify-center"><i class="fa fa-mars fa-lg"></i>&nbsp;Masculino</a>
-                <input type="hidden" id="gender" name="gender" value="{{dados.genero}}">
+                <input type="hidden" id="gender" name="genero" value="{{dados.genero}}">
                 <script>
                     const masculino_bt = document.getElementById('masculino')
                     const feminino_bt = document.getElementById('feminino')
                     const genero = document.getElementById('gender')
-                    console.log(genero)
+                   
                     masculino_bt.addEventListener('click', function(e){
                         e.preventDefault()
                         genero.value = 'masculino'
@@ -31,6 +31,7 @@ Início
                         this.classList.add('bg-cyan-400')
                         feminino_bt.classList.remove('bg-pink-400')
                         feminino_bt.classList.add('bg-slate-300')
+                        
                     })
                     feminino_bt.addEventListener('click', function(e){
                         e.preventDefault()

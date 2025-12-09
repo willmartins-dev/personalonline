@@ -1,6 +1,6 @@
 {% extends 'base/base.html' %}
 {% block 'title'%}
-TREINO
+Início
 {% endblock %}
 
 {% block 'content'%}
@@ -12,21 +12,21 @@ TREINO
         <a href="{% url 'logout' %}" class="bg-red-500 p-1 rounded-full"><i class="fa fa-sign-out"></i> LOGOUT</a>
     </div>
 
-    {% if meso %}
-
-    {% for m in meso %}
-        <div class="bg-white p-3 rounded-lg text-amber-900 shadow-md">
-            <div class="flex items-center justify-between ">
-                <a href="{% url 'treino_micro' m.id%}" class="font-medium uppercase text-slate-900"><i class="fa fa-heartbeat"></i>&nbsp;{{m.titulo}}</a>     
-                <p>Final: {{m.duracao}}</p>            
-            </div>
+    {% if micro %}
+        <div class="bg-slate-600 p-2 rounded">
+            {{micro.mesociclo.title}}
         </div>
-        
-        {% for t in m.microciclo_set.all %}
-            {{t.titulo}}
-        
-        {% endfor %}        
-    {% endfor %}
+      <div class="gap-5 flex flex-wrap items-center">
+    
+        {% for t in micro %}
+
+                <div class="w-full bg-gray-200 text-slate-900 p-2 rounded">
+                    <h1 class="text-center my-2 text-white bg-slate-900 rounded p-1">{{t.titulo}}</h1>
+                    <a href="{% url 'comecar' t.id %}" data-id="{{t.id}}" class="flex justify-center items-center bg-amber-600 font-medium text-white p-2 hover:text-amber-900 hover:bg-amber-400 rounded"><i class="fa fa-play mx-2"></i>Começar</a>
+                </div>
+    
+        {% endfor %}
+     </div>
     {% else %}
         <div class="bg-white text-slate-900 text-center rounded-2xl p-4 space-y-3">
             <h1 class="">Responda a Anamnese honestamente para que possamos alcançar juntos seu objetivo!</h1>
