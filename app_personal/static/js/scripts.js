@@ -153,4 +153,20 @@ const csrftoken = getCookie('csrftoken');
       window.location.reload(true)
    })
 
+   $('[data-id]').on('click', function(e){
+      e.preventDefault();
+      $('.bg-modal').fadeIn()
+      url = e.target.href
+      $.ajax({
+         url:url,
+         method:'GET',
+         success:function(data){
+
+            $('.result-lead').load(url)
+         }
+      });
+   })
+   $('.close-lead').on('click', function(e){
+      $('.bg-modal').fadeOut()
+   })
 })

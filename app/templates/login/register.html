@@ -2,23 +2,36 @@
 {% block 'title' %}Registrar{% endblock %}
 
 {% block 'content' %}
+
 <div class="text-center container m-auto p-4 my-4">
     <h1 class="text-2xl text-green-400">Personal Will Martins</h1>
     <p class="text-white text-center">Responda o questionário a baixo para iniciarmos nossa jornada e alcançar juntos seu objetivo!</p>
 </div> 
 <section class="container m-auto justify-center  w-[90%] bg-white shadow-md p-2 rounded-2xl">
     <h1 class="text-2xl text-center">Pré - Cadastro</h1>
-    <form method="post" class="flex flex-col justify-center gap-2 p-4">
+    <form action="{% url 'pre_cadastro' %}" method="post" class="flex flex-col justify-center gap-2 p-4">
         
         {% csrf_token %} 
         <label>Nome:</label>
-        <input type="text" name="first_name" class="p-2 rounded-full border" required>
+        <input type="text" name="nome" class="p-2 rounded-full border" required placeholder="Nome Completo">
+        <label>Gênero:</label>
+        <select name="genero" class="p-2 rounded-full border" required>
+            <option>masculino</option>
+            <option>feminino</option>
+        </select>
+        <label>Data de nascimento:</label>
+        <input type="date" name="nascimento" class="p-2 rounded-full border" required>
         <label>E-mail:</label>
-        <input type="email" name="email" class="p-2 rounded-full border" required>
+        <input type="email" name="email" class="p-2 rounded-full border" required placeholder="email@provedor.com">
         <label>celular:</label>
-        <input type="number" name="celular" class="p-2 rounded-full border" required>
+        <input type="number" name="celular" class="p-2 rounded-full border" required placeholder="Ex: 15997009900">
+        <label>Peso(Kg):</label>
+        <input type="number" name="peso" class="peso p-2 rounded-full border" required placeholder="Ex: 75.5">
+
+        <label>Altura(cm):</label>
+        <input type="number" name="altura" class="p-2 rounded-full border" required placeholder="Ex: 175">
         <label>Objetivo de treino:</label>
-        <select class="p-2 rounded-full border" required>
+        <select name="objetivo" class="p-2 rounded-full border" required>
             <option>Ganhar massa</option>
             <option>Emagrecer</option>
             <option>Saúde</option>
@@ -26,7 +39,7 @@
         </select>
         <label>Frequencia de treino:</label>
         
-        <select class="p-2 rounded-full border" required>
+        <select name="frequencia" class="p-2 rounded-full border" required>
             <option>1x/Semana</option>
             <option>2x/Semana</option>
             <option>3x/Semana</option>
@@ -36,12 +49,13 @@
             <option>7x/Semana</option>
         </select>
         <label>Nível de atividade atual:</label>
-        <select class="p-2 rounded-full border" required>
+        <select name="nivel" class="p-2 rounded-full border" required>
             <option>Sedentário</option>
             <option>Iniciante</option>
             <option>Intermediário</option>
             <option>Avançado</option>
         </select>
+        <input type="hidden" name="personal" value="15">
         <button type="submit" class="bg-gray-800 text-white rounded-full p-2">Enviar</button>
     </form>
     <div class="w-full py-4 flex flex-wrap items-center justify-start">

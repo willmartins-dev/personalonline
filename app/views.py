@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, Group
 from app_personal.models import Mesociclo, Microciclo, ExerciciosCliente
 from django.contrib import messages
 from django.urls import reverse
-from .models import DadosIniciais
+from .models import DadosIniciais, preCadastro
 from .forms import AnamneseForm
 import re
 
@@ -78,6 +78,9 @@ def comecar(request, id):
         }
 
     return render(request, 'treino/comecar.html',context)
+def medidas(request):
+
+    return render(request, 'inicio/medidas.html')
 
 def anamnese(request):
 
@@ -179,17 +182,24 @@ def logout_view(request):
 
 def pre_cadastro(request):
     if request.method == 'POST':
-        first_name = request.POST['first_name']
-        email=request.POST['email']
-        username=request.POST['email']
-        password=request.POST['password']
-        user = User.objects.create_user(
-            username=username, 
-            password=password,
-            email=email,
-            first_name =first_name,
-            )
-        user.save()
+        
+        pre_cadastro = preCadastro(
+            personal = request.POST['personal'],
+            nome = request.POST['nome'],
+            email=request.POST['email'],
+            celular=request.POST['celular'],
+            genero=request.POST['genero'],
+            data_nascimento=request.POST['nascimento'],
+            peso=request.POST['peso'],
+            altura=request.POST['altura'],
+            objetivo=request.POST['objetivo'],
+            frequencia=request.POST['frequencia'],
+            nivel=request.POST['nivel'],
+        )
+        pre_cadastro.save()
         messages.success(request, "Conta criada!")
-        return redirect('login_view')
+        return redirect('login/register-success.html')
     return render(request, 'login/register.html')
+
+def register_success(request):
+    return redirect(request, 'login/register-success.html')

@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from .models import CategoriaExercicios, Exercicios, Mesociclo, Microciclo, ExerciciosCliente
-from app.models import DadosIniciais
+from app.models import DadosIniciais,preCadastro
 import re
 
 
@@ -20,6 +20,7 @@ def inicio(request):
 
                 usuarios = User.objects.filter(groups__name = request.user.email)
                 dados = DadosIniciais.objects.select_related('user_id').all()
+                leads = preCadastro.objects.filter(personal=request.user.id)
                 counter = usuarios.count()
 
                    
@@ -27,18 +28,21 @@ def inicio(request):
             else:
                 usuarios=''
                 counter='0'
-
+                leads = ''
+            
             context={
                 'usuarios':usuarios,
                 'alunos':counter,
                 'dados':dados,
-                
+                'leads':leads
             }
             return render(request, 'home/home.html', context)
             #return HttpResponse()
     else:
 
         return redirect('login_personal')
+def lista_pre_clientes(request):
+    pass
 
 def clientes(request):
     if request.method == 'GET':
@@ -277,3 +281,25 @@ def register_personal(request):
         
     
     return render(request, 'accounts/register.html')
+def lista_pre(request):
+
+    lista_leads = preCadastro.objects.filter(personal = request.user.id)
+
+    context = {
+        'leads':lista_leads
+    }
+    
+    return render(request, 'leads/pre-cadastro.html', context)
+def visualizar_lead(request,id):
+    lead = preCadastro.objects.filter(id=id)
+    context={
+        'lead':lead
+    }
+    return render(request, 'leads/visualizar-lead.html', context)
+
+def delete_lead(request, id):
+
+    lead = preCadastro.objects.get(id=id)
+    lead.delete()
+
+    return redirect('lista_pre')

@@ -65,5 +65,16 @@ class Anamnese(models.Model):
     data_criacao = models.DateTimeField(auto_now_add=True)
     ultima_atualizacao = models.DateTimeField(auto_now=True)
 
-    
-
+class preCadastro(models.Model):
+    personal = models.IntegerField(blank=True, null=True)
+    nome = models.CharField(max_length=255)
+    genero = models.CharField(max_length=255)
+    data_nascimento = models.DateField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    celular = models.CharField(max_length=255)
+    peso = models.FloatField(blank=True, null=True)
+    altura = models.IntegerField(blank=True, null=True)
+    objetivo = models.CharField(max_length=255)
+    frequencia = models.CharField(max_length=255)
+    nivel = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)

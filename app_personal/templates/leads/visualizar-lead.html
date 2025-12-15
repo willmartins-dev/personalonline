@@ -1,0 +1,71 @@
+
+<section class="container w-full max-w-[900px] m-auto p-4 bg-white">
+        
+    <div class="bg-white space-y-3">
+        <h1 class="p-2 font-medium uppercase flex justify-center items-center text-gray-200 bg-gray-900">Dados do lead</h1>
+        
+            {% for l in lead %}
+            
+             <p>
+                <span class="font-medium uppercase">Cadastro:&nbsp;</span>{{l.created_at}}
+                
+            </p>
+            <p>
+                <span class="font-medium uppercase">Nome:&nbsp;</span>{{l.nome}}
+                
+            </p>
+            <p>
+                <span class="font-medium uppercase">Data Nascimento:&nbsp;</span>{{l.data_nascimento}}
+                
+            </p>
+            <p>
+                <span class="font-medium uppercase">Genero:&nbsp;</span>{{l.genero}}
+                
+            </p>
+            <p>
+                <span class="font-medium uppercase">Email:&nbsp;</span>{{l.email}}
+                
+            </p>
+            <p>
+                <span class="font-medium uppercase">Celular:&nbsp;</span>{{l.celular}}
+                
+            </p>
+            <p>
+                <span class="font-medium uppercase">Email:&nbsp;</span>{{l.email}}
+                
+            </p>
+
+            <h1 class="p-2 font-medium uppercase flex justify-center items-center text-gray-200 bg-gray-900">Dados Físicos</h1>
+
+            <p>
+                <span class="font-medium uppercase">Peso:&nbsp;</span>{{l.peso}} Kg
+                
+            </p>
+            <p>
+                <span class="font-medium uppercase">Altura:&nbsp;</span>{{l.altura}} cm
+                
+            </p>
+
+            <h1 class="p-2 font-medium uppercase flex justify-center items-center text-gray-200 bg-gray-900">Objetivo</h1>
+
+            <p>
+                <span class="font-medium uppercase">Objetivo:&nbsp;</span>{{l.objetivo}}
+                
+            </p>
+            <p>
+                <span class="font-medium uppercase">Frequencia:&nbsp;</span>{{l.frequencia}}
+                
+            </p>
+            <p>
+                <span class="font-medium uppercase">Nível:&nbsp;</span>{{l.nivel}}
+                
+            </p>
+
+            {% endfor %}
+        
+    </div>
+    
+
+<br><br><br><br><br><br>
+    
+</section>

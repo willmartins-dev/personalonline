@@ -5,6 +5,16 @@ Início
 
 {% block 'content'%}
 {% if user.is_superuser == True %}
+<div class="bg-black/60 fixed w-full h-screen bg-modal hidden z-10">
+    <h1 class="p-2 font-medium uppercase flex justify-between items-center text-gray-200 bg-gray-900">Lead
+        <a href="#" class="text-lg close-lead">X</a>
+    </h1>
+    <div class="w-full bg-white h-full p-4  overflow-y-auto">
+        <div class="result-lead">
+
+        </div>
+    </div>
+</div>
 <section class="content m-2 bg-white rounded p-4 shadown-md">
 
     <div class="flex items-center justify-between gap-4 text-gray-600">
@@ -18,7 +28,7 @@ Início
         </a>
     </div>
 </section>
-<section class="container m-auto p-2 flex relative gap-4">
+<section class="container m-auto p-2 relative gap-4">
     <div class="w-full h-screen fixed bg-white top-0 left-0 p-4 hidden z-8" id="cadastro-aluno">
 
         <h1 class="p-2 rounded-lg font-medium uppercase flex justify-center items-center text-gray-600 text-lg"><i class="fa fa-users"></i>&nbsp;REGISTRAR Cliente</h1>
@@ -41,6 +51,7 @@ Início
             <span class="text-green-600">Clique no link de whatsapp na "Home" ou em "Clientes"</span>
         </p>
     </div>
+    <div class="w-full flex flex-col items-center justify-between gap-3">
     <div class="w-full bg-gradient-to-b from-cyan-500 to-cyan-800 rounded p-2 text-white shadown-md space-y-4 text-center">
         <h1 class="uppercase font-bold"><i class="fa fa-users"></i>&nbsp;Adicionar cliente</h1>
         <a href="#" id="abrir-rg-aluno" class="bg-green-800 p-1 rounded block">
@@ -48,7 +59,7 @@ Início
             <i class="fa fa-plus"></i>
         </a>
         <p>Últimos cadastros:</p>
-        <div class="flex flex-col h-auto bg-blue-200 overflow-y">
+        <div class="w-full h-auto bg-blue-200 overflow-y-auto">
             {% if usuarios == '0' %}
                 <p class="text-white">Nenhum aluno cadastrado!</p>
             {% else %}
@@ -70,12 +81,30 @@ Início
             {% endif %}
         </div>
     </div>
-    <div class="w-full bg-white rounded text-center h-[350px] p-2">
-        <h1 class="uppercase"><i class="fa fa-heartbeat"></i>&nbsp;Treinos Finalizados</h1>
-        {% for a in usuarios %}
-        <a href="">{{a.first_name}}</a>
+    <div class="w-full bg-white rounded p-2">
+        <a href="{% url 'lista_pre' %}" class="uppercase block hover:underline text-center border-b-1 p-2 w-full"><i class="fa fa-users"></i>&nbsp;Pré cadastros</a>
+        <div class="h-auto flex flex-col items-center justify-between">
+        {% if leads %}
+        {% for a in leads %}
+        <div class="{% cycle 'bg-gray-200' 'bg-white' %} w-full flex justify-between p-2">
+            <div>
+            <a href="" class="font-medium">{{a.nome}}</a>
+            </div>
+            <div>
+            <a href="{% url 'visualizar_lead' a.id%}" data-id="{{a.id}}" class="bg-gray-100">Visualizar | </a>
+            <a href="{% url 'delete_lead' a.id %}" class="bg-gray-100">Excluir</a>
+            </div>
+        </div>
+        
+
         {% endfor %}
+        {% else %}
+            <p class="p-2">Nenhum pré cadastro !</p>
+        {%endif%}
+        </div>
     </div>
+    </div>
+    <br><br><br><br><br><br>
 </section>
 {% endif %}
 {% endblock %}

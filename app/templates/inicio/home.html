@@ -34,16 +34,25 @@ Início
         
         {% for t in treino %}
         <div class="flex items-center justify-between border-b-1">
-            <h2 class="text-sm text-slate-900"><i class="fa fa-heartbeat"></i>&nbsp;{{t.titulo}}</h2>     
+            <h2 class="text-sm text-slate-900"><i class="fa fa-heartbeat"></i>&nbsp;Teste</h2>     
             <p>Termina: {{t.duracao}}</p>
             
         </div>
 
-        <ul class="flex items-center my-4">
+        <ul class="flex items-center my-4 gap-2">
+            <!--
             <li>
-                <a href="" class="p-2 bg-slate-200">
+                <a href="" class="p-2 bg-slate-200 ">
                     <i class="fa fa-pencil"></i>
-                    Feedback
+                    Registrar Medidas
+                </a>
+               
+            </li>
+            -->
+            <li>
+                 <a href="{% url 'treino_micro' t.id%}" class="p-2 bg-slate-200">
+                    <i class="fa fa-eye"></i>
+                    Vizualizar Treino
                 </a>
             </li>
         </ul>
