@@ -10,6 +10,9 @@ $(document).ready(function(){
     $('.celular').mask('(00)00000-0000');
     $('.peso').mask('##0.0', {reverse: true});
 
-    
+    $('[data-medida]').on('click', function(e){
+        e.preventDefault();
+        alert(e.target.href)
+    })
 
 })

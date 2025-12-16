@@ -1,37 +1,102 @@
-<form>
+{% extends 'base/base.html' %}
+{% block 'title'%}
+Início
+{% endblock %}
+
+{% block 'content'%}
+<h1 class="text-center text-lg border-b-1 border-slate-600 p-4 text-slate-200">MEDIDAS ANTROPOMÉTRICAS</h1>
+<section class="container w-full max-w-[900px] m-auto my-2 p-4 text-white space-y-3 ">
+<h1 class="text-center">Assista como tirar as medidas </h1>
+<p class="text-slate-800 p-3 bg-slate-200 rounded"><i class="fa fa-bar-chart"></i>Cadastre suas medidas para que possamos comparar seu progresso, com os treinos futuros!</p>
+
+<iframe width="100%" height="315" src="https://www.youtube.com/embed/UTwARbpW6e4?si=Jl9K3P8qKpKU00Xn" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+{% if not dados%}
+<form action="{% url 'medidas' id_meso %}" method="post" class="flex flex-wrap justify-between">
+    {% csrf_token %}
     <div>
-        <label>Peso Kg:</label>
-        <input type="number" name="peso" class="peso" required/>
+        <label class="block">Peso Kg:</label>
+        <input type="number" name="peso" class="text-black peso bg-white rounded p-2" step="any" required value=" {{dados.peso}}"/>
     </div>
     <div>
-        <label>Tórax:</label>
-        <input type="number" name="torax" class="peso" required/>
+        <label class="block">Tórax:</label>
+        <input type="number" name="torax" class="text-black bg-white rounded p-2" required/>
     </div>
     <div>
-        <label>Cintura:</label>
-        <input type="number" name="cintura" class="peso" required/>
+        <label class="block">Cintura:</label>
+        <input type="number" name="cintura" class="text-black bg-white rounded p-2" required/>
     </div>
     <div>
-        <label>Quadril:</label>
-        <input type="number" name="quadril" class="" required/>
+        <label class="block">Quadril:</label>
+        <input type="number" name="quadril" class="text-black bg-white rounded p-2" required/>
     </div>
     <div>
-        <label>Bíceps Direito:</label>
-        <input type="number" name="b-d" class="" required/>
+        <label class="block">Bíceps Direito:</label>
+        <input type="number" name="b-d" class="text-black bg-white rounded p-2" required/>
     </div>
     <div>
-        <label>Bíceps Esquerdo:</label>
-        <input type="number" name="b-e" class="" required/>
+        <label class="block">Bíceps Esquerdo:</label>
+        <input type="number" name="b-e" class="text-black bg-white rounded p-2" required/>
     </div>
     <div>
-        <label>Coxa Direita:</label>
-        <input type="number" name="c-d" class="peso" required/>
+        <label class="block">Coxa Direita:</label>
+        <input type="number" name="c-d" class="text-black bg-white rounded p-2" required/>
     </div>
     <div>
-        <label>Coxa Esquerda:</label>
-        <input type="number" name="c-e" class="peso" required/>
+        <label class="block">Coxa Esquerda:</label>
+        <input type="number" name="c-e" class="text-black bg-white rounded p-2" required/>
     </div>
-    <div>
-        <button type="submit">Registrar dados</button>
+    <div class="block w-full">
+        <button type="submit" class="w-[100%] p-3 bg-green-500 uppercase my-4"><i class="fa fa-save"></i>&nbsp;Enviar dados</button>
     </div>
 </form>
+{% else %}
+<h1 class="border-b-1 text-center p-2">Medidas cadastradas</h1>
+{% for d in dados %}
+    <div class="text-lg text-center flex flex-wrap justify-between items-center gap-3">
+        
+        <p class="w-40 h-16 p-1 bg-slate-600">
+        Peso:
+        {{d.peso}}Kg
+        </p>
+        <p class="w-40 h-16 p-1 bg-slate-600">
+        Tórax:
+        {{d.torax}}cm
+        </p>
+        <p class="w-40 h-16 p-1 bg-slate-600">
+        Cintura:
+        {{d.cintura}}cm
+        </p>
+        <p class="w-40 h-16 p-1 bg-slate-600">
+        Quadril:
+        {{d.quadril}}cm
+        </p>
+        <p class="w-40 h-16 p-1 bg-slate-600">
+        Braço Direito:
+        {{d.braco_direito}}cm
+        </p>
+        <p class="w-40 h-16 p-1 bg-slate-600">
+        Braço Esquerdo:
+        {{d.braco_esquerdo}}cm
+        </p>
+        <p class="w-40  h-16 p-1 bg-slate-600">
+        Coxa Direita:
+        {{d.coxa_direita}}cm
+        </p>
+        <p class="w-40 h-16 p-1 bg-slate-600">
+        Coxa Esquerda:
+        {{d.coxa_esquerda}}cm
+        </p>
+        
+    </div>
+    <a href="{% url 'delete_medidas' d.id %}" class="block w-full text-center p-3 bg-red-500 text-white"><i class="fa fa-trash"></i>&nbsp;Excluir Medidas</a>
+    <p class="text-white"><i class="fa fa-warning"></i>&nbsp Confira os dados corretamente, se houver algum erro você pode excluir e cadastrar novamente.</p>
+    {% endfor %}
+    
+{% endif %}
+
+</section>
+<section>
+<br><br><br><br><br><br><br>
+</section>
+{% endblock %}

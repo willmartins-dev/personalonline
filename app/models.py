@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from app_personal.models import Mesociclo
 import datetime
 
 
@@ -35,6 +36,17 @@ class DadosIniciais(models.Model):
             tmb = 0
 
         return round(tmb,2)
+class Medidas(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    mesociclo_id = models.IntegerField(null=True)
+    peso = models.DecimalField(null=True, max_digits=10, decimal_places=2)
+    torax = models.FloatField(null=True)
+    cintura = models.FloatField(null=True)
+    quadril = models.FloatField(null=True)
+    braco_direito = models.FloatField(null=True)
+    braco_esquerdo = models.FloatField(null=True)
+    coxa_direita = models.FloatField(null=True)
+    coxa_esquerda = models.FloatField(null=True)
 
 class Anamnese(models.Model):
     # Dados pessoais

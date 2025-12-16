@@ -30,27 +30,24 @@ Início
         </div>
     </div>
     {% if treino %}
-    <div class="bg-white p-3 rounded-lg text-amber-900 shadow-md">
+    <div class="bg-white p-3 rounded-lg text-amber-900 shadow-md my-2">
         
         {% for t in treino %}
-        <div class="flex items-center justify-between border-b-1">
-            <h2 class="text-sm text-slate-900"><i class="fa fa-heartbeat"></i>&nbsp;Teste</h2>     
-            <p>Termina: {{t.duracao}}</p>
-            
+        <div class="flex items-center justify-between items-center bg-slate-300 p-2">
+            <h2 class="text-sm text-slate-900 uppercase"><i class="fa fa-heartbeat"></i>&nbsp;{{t.titulo}}</h2>     
+            <p class="text-red-500">Termina: {{t.duracao}}</p>
         </div>
 
-        <ul class="flex items-center my-4 gap-2">
-            <!--
-            <li>
-                <a href="" class="p-2 bg-slate-200 ">
+        <ul class="w-full flex items-center my-4 gap-2 border-b-1 border-slate-400 py-1">
+            <li class="w-full">
+                <a href="{% url 'medidas' t.id %}" class="text-center block text-slate-900 font-medium p-2 bg-slate-200 ">
                     <i class="fa fa-pencil"></i>
                     Registrar Medidas
                 </a>
                
             </li>
-            -->
-            <li>
-                 <a href="{% url 'treino_micro' t.id%}" class="p-2 bg-slate-200">
+            <li class="w-full">
+                 <a href="{% url 'treino_micro' t.id%}" class="text-center block p-2 bg-slate-200 text-slate-900 font-medium ">
                     <i class="fa fa-eye"></i>
                     Vizualizar Treino
                 </a>
@@ -65,6 +62,7 @@ Início
             <a href="{% url 'anamnese' %}" class="bg-amber-400 py-2 px-4 rounded-full uppercase font-medium">Responder agora!</a>
         </div>
     {% endif %}
+    <br><br><br><br><br><br><br>
 </section>
 {% endif %}
 {% endblock %}

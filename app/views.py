@@ -4,7 +4,7 @@ from django.contrib.auth.models import User, Group
 from app_personal.models import Mesociclo, Microciclo, ExerciciosCliente
 from django.contrib import messages
 from django.urls import reverse
-from .models import DadosIniciais, preCadastro
+from .models import DadosIniciais, preCadastro, Medidas
 from .forms import AnamneseForm
 import re
 
@@ -78,9 +78,38 @@ def comecar(request, id):
         }
 
     return render(request, 'treino/comecar.html',context)
-def medidas(request):
 
-    return render(request, 'inicio/medidas.html')
+def medidas(request, id):
+
+    if request.method == 'POST':
+        
+        peso_antigo = request.POST.get('peso')
+        medidas = Medidas(
+        user = request.user,
+        mesociclo_id = id,
+        peso = peso_antigo.replace(',', '.'),
+        torax = request.POST.get('torax'),
+        cintura = request.POST.get('cintura'),
+        quadril = request.POST.get('quadril'),
+        braco_direito = request.POST.get('b-d'),
+        braco_esquerdo = request.POST.get('b-e'),
+        coxa_direita = request.POST.get('c-d'),
+        coxa_esquerda = request.POST.get('c-e'),
+        )
+        medidas.save()
+        return redirect('medidas', id)
+    else:        
+        dados_medidas = Medidas.objects.filter(mesociclo_id = id)
+        context = {
+            'id_meso':id,
+            'dados':dados_medidas
+        }
+        return render(request, 'inicio/medidas.html', context)
+def delete_medidas(request, id):
+    medidas = Medidas.objects.get(id=id)
+    medidas.delete()
+    #return HttpResponse(id)
+    return redirect('medidas', id)
 
 def anamnese(request):
 
@@ -202,4 +231,4 @@ def pre_cadastro(request):
     return render(request, 'login/register.html')
 
 def register_success(request):
-    return redirect(request, 'login/register-success.html')
+    return redirect('register_success')
