@@ -12,6 +12,7 @@ urlpatterns = [
     path('clientes', views.clientes, name='clientes'),
     path('cadastrar_senha/<int:id>', views.cadastrar_senha, name='cadastrar_senha'),
     path('treinamento/<int:id>', views.treinamento, name='treinamento'),
+    path('comparar_medidas/', views.comparar_medidas, name='comparar_medidas'),
     path('microciclo/<int:id>', views.microciclo, name='microciclo'),
     path('add_exercicio/', views.add_exercicio, name='add_exercicio'),
     path('update_exercicios_cliente/<int:id>', views.update_exercicios_cliente, name='update_exercicios_cliente'),

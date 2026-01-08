@@ -21,7 +21,10 @@ Treinos
     </div>
 </div>
 <section class="m-auto container my-4">
-    <h1 class="text-white font-medium uppercase p-4">{{mesociclo.titulo }} - {{mesociclo.duracao}}</h1>
+    <div class="flex items-center justify-between m-4">
+    <h1 class="text-white font-medium uppercase"><span class="font-bold text-blue-200">{{mesociclo.titulo }}</span> - {{mesociclo.duracao}}</h1>
+    <button type="button" onclick="history.back()" class="text-white cursor-pointer"><i class="fa fa-arrow-left"></i>&nbsp;VOLTAR</button>
+    </div>
     <h1 class="font-medium uppercase p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-500 text-white"><i class="fa fa-plus m-2"></i>Adicionar treino do dia</h1>
     <div class="bg-white rounded-bl-lg rounded-br-lg p-4">
     

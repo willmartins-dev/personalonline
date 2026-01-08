@@ -169,4 +169,22 @@ const csrftoken = getCookie('csrftoken');
    $('.close-lead').on('click', function(e){
       $('.bg-modal').fadeOut()
    })
-})
+
+   $('.form-comparar').on('submit', function(e){
+      e.preventDefault();
+      const url = e.target.action;
+      const data_antiga = $("#data_antiga").val()
+      const data_atual = $("#data_atual").val()
+      const params = url+'?data1='+data_antiga+'&data2='+data_atual
+      
+      $.ajax({
+         url:params,
+         method:'GET',
+         success:function(data){
+            //console.log(data)
+            $('#mostrar-resultado').load(params)
+         }
+      })
+   })
+
+})//fim document

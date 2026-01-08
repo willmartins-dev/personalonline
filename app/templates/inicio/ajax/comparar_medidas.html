@@ -1,0 +1,29 @@
+<section class="bg-white">
+    <br>
+{% if comparativo %}
+    <table class="w-full">
+        <thead class="bg-slate-700 text-white">
+            <tr class="py-2 ">
+                <th>Medida</th>
+                <th>Anterior (cm)</th>
+                <th>Atual (cm)</th>
+                <th>Diferença</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in comparativo %}
+            <tr {% cycle 'class="bg-white"' 'class="bg-slate-200"' %}>
+                <td class="font-bold py-1">{{ item.label }}</td>
+                <td class="text-center">{{ item.v_antigo }}</td>
+                <td class="text-center">{{ item.v_recente }}</td>
+                <td class="text-center font-medium text-red-500">{{ item.diff }}</td>
+                <td class="{% if item.diff > 0 %} text-orange-400 {% else %} text-blue-600 {%endif%}" >
+                    {{ item.status }}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endif %}
+</section>

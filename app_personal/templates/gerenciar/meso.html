@@ -6,9 +6,16 @@ Treinos
 {% block 'content'%}
 
 {% if user.is_superuser == True %}
+<div class="flex items-center justify-between m-4">    
+    <h1 class="font-bold text-white text-xl uppercase font-bold">{{clientes.first_name}}</h1>
+    <button type="button" onclick="history.back()" class="text-white font-bold cursor-pointer"><i class="fa fa-arrow-left"></i>&nbsp;VOLTAR</button>
+</div>
 
 <section class="container m-auto my-4 rounded">
-    <h1 class="text-lg font-medium uppercase p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-500 text-white"><i class="fa fa-plus m-2"></i>Adicionar treino</h1>
+    
+        <h1 class="text-lg font-medium uppercase p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-500 text-white"><i class="fa fa-plus m-2"></i>Adicionar treino</h1>
+    
+    
     <div class="bg-white p-2 space-y-2 rounded-br-lg rounded-bl-lg">
         <form action="{% url 'treinamento' clientes.id  %}" method="post" class="flex flex-wrap items-center justify-between">
             {% csrf_token %}
@@ -34,7 +41,7 @@ Treinos
         </form>
     </div>
     <div class="my-3">
-       <h1 class="text-lg font-medium uppercase p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-500 text-white"><i class="fa fa-list m-2"></i>Mesociclo</h1>
+       <h1 class="text-lg font-medium uppercase p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-cyan-500 text-white"><i class="fa fa-list m-2"></i>Lista de treinos</h1>
        <div class="flex items-center gap-2 rounded-bl-lg rounded-br-lg bg-white p-2">
         {% for m in mesociclo %}
             <div class="flex flex-col bg-slate-200 space-y-3 items-center p-4 relative">
@@ -43,6 +50,7 @@ Treinos
                     <i class="fa fa-heartbeat"></i>
                     <span>{{m.titulo}}</span>
                 </h1>
+                <p>Até:{{m.duracao}}</p>
                 <a href="{% url 'microciclo' m.id %}" class="bg-green-500 w-full text-white  rounded-2xl px-2 font-medium"><i class="fa fa-plus"></i> Microciclo</a>
             </div>
         {% endfor %}
@@ -50,7 +58,41 @@ Treinos
     </div>
 
 </section>
-
+<section class="container m-auto my-4 rounded">
+    <h1 class="text-lg font-medium uppercase p-2 border-solid border-b-1 rounded-tr-lg rounded-tl-lg bg-green-500 text-white"><i class="fa fa-line-chart m-2"></i>Comparação de medidas</h1>
+        <div class="gap-2 rounded-bl-lg rounded-br-lg bg-white p-2">
+            <form action="{% url 'comparar_medidas' %}" method="POST" class="form-comparar flex gap-3 w-full">
+                {% csrf_token %}
+                <div class="w-full block space-y-2">
+                <label class="block">Primeiro treino:</label>
+                <select name="data1" id="data_antiga" class="w-full border border-slate-300">
+                    <option>Selecione</option>
+                    {% for pt in medidas %}
+                        <option value="{{pt.id}}">{{pt.created_at|date:"Y-m-d" }}</option>
+                    {%endfor%}
+                </select>
+                </div>
+                <div class="w-full block space-y-2">
+                <label class="block">Segundo treino:</label>
+                <select name="data2" id="data_atual" class="w-full border border-slate-300">
+                    <option>Selecione</option>
+                    {% for st in medidas %}
+                        <option value="{{st.id}}">{{st.created_at|date:"Y-m-d" }}</option>
+                    {%endfor%}
+                </select>
+                </div>
+                <div>
+                    <br>
+                <button type="submit" class="bg-green-500 text-white h-10 p-2 rounded cursor-pointer">Comparar</button>
+                </div>
+            </form>
+           <div class="bg-white p-2">
+            <div id="mostrar-resultado"></div>
+        </div>
+        </div>
+        
+        <br><br><br><br>
+</section>
 
 {% endif %}
 

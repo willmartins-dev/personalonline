@@ -38,3 +38,10 @@ p{
 .animated-zoom {
   animation: zoom-in-out 0.5s  alternate ease-in-out; /* Applies the animation */
 }
+.card{
+ flex:1;
+  transition: flex .3s ease;
+}
+.card:hover{
+  flex:3;
+}

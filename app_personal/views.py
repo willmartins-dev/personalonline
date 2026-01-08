@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from .models import CategoriaExercicios, Exercicios, Mesociclo, Microciclo, ExerciciosCliente
-from app.models import DadosIniciais,preCadastro
+from app.models import DadosIniciais,preCadastro,Medidas
 import re
 
 
@@ -41,8 +41,6 @@ def inicio(request):
     else:
 
         return redirect('login_personal')
-def lista_pre_clientes(request):
-    pass
 
 def clientes(request):
     if request.method == 'GET':
@@ -65,11 +63,13 @@ def treinamento(request, id):
     if request.method == 'GET':
         clientes = User.objects.get(id=id)
         mesociclo = Mesociclo.objects.filter(user_id = id)
+        medidas = Medidas.objects.filter(user_id=id)
         if request.method == 'GET':
             context={
                 'clientes':clientes,
                 'user':user,
                 'mesociclo':mesociclo,
+                'medidas':medidas,
                 }
         return render(request, 'gerenciar/meso.html', context)    
     elif request.method == 'POST':
@@ -113,7 +113,40 @@ def microciclo(request,id):
         microciclo.save()
         return redirect('microciclo', id=id)
     
+@csrf_exempt
+def comparar_medidas(request):
 
+    data_antiga = request.GET.get('data1')
+    data_atual = request.GET.get('data2')
+    
+    if data_antiga and data_atual:
+        # Buscamos os registros específicos
+        medida_recente = Medidas.objects.get(id=data_antiga)
+        medida_antiga = Medidas.objects.get(id=data_atual)
+
+        campos = ['torax', 'cintura', 'quadril', 'coxa_direita', 'coxa_esquerda', 'braco_direito', 'braco_esquerdo']
+        comparativo = []
+
+        for campo in campos:
+            v_recente = getattr(medida_recente, campo)
+            v_antigo = getattr(medida_antiga, campo)
+            diff = v_recente - v_antigo
+
+            comparativo.append({
+                'label': campo.capitalize(),
+                'v_antigo': v_antigo,
+                'v_recente': v_recente,
+                'diff': round(diff, 2),
+                'status': 'Aumentou' if diff > 0 else 'Diminuiu' if diff < 0 else 'Manteve'
+            })
+        
+        context={
+            'comparativo': comparativo,
+            'medida_recente': medida_recente,
+            'medida_antiga': medida_antiga,
+        }
+    
+    return render(request, 'gerenciar/ajax/comparar_medidas.html', context)
     
 @csrf_exempt
 def add_exercicio(request):

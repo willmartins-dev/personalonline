@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User, Group
+from django.contrib.auth.models import User
 from app_personal.models import Mesociclo, Microciclo, ExerciciosCliente
 from django.contrib import messages
 from django.urls import reverse
 from .models import DadosIniciais, preCadastro, Medidas
 from .forms import AnamneseForm
+from django.views.decorators.csrf import csrf_exempt
 import re
 
 def index(request):
@@ -20,21 +21,89 @@ def home(request):
         return redirect('login_view')
     else:
         dados_iniciais_verificados = DadosIniciais.objects.filter(user_id = user_id)
-        treino = Mesociclo.objects.filter(user_id=user_id)
+        treino = Mesociclo.objects.filter(user_id=user_id).order_by('-id')[:1]
+        medidas = Medidas.objects.filter(user_id=user_id)
+        
 
         if not dados_iniciais_verificados:
             return redirect('dados_iniciais')
         else:    
             dados_iniciais = DadosIniciais.objects.get(user_id = user_id)
+            gorduras = Medidas.objects.filter(user_id=user_id).order_by('-id')[:1]
+            dados_gordura=[]
+            if gorduras:
+                
+
+                for g in gorduras:
+                    dados_gordura.append({
+                        'gordura': g.calcular_percentual_gordura(dados_iniciais.genero, dados_iniciais.altura),
+                        'peso':g.peso
+                    })
+            else:
+                dados_gordura=[{'gordura':0}]
+
             context={
             'treino':treino,
             'grupo':user_group,
             'dados_iniciais':dados_iniciais,
             'calc_idade':dados_iniciais.Idade(),
             'calc_agua':dados_iniciais.calc_agua(),
-            'tmb':dados_iniciais.calc_kcal()
-        }
+            'tmb':dados_iniciais.calc_kcal(),
+            'medidas':medidas,
+            'gordura':dados_gordura[0]['gordura'],
+            'peso':dados_gordura[0]['peso'],
+            }
+            
+                
+                
+        
         return render(request, 'inicio/home.html', context)
+    
+@csrf_exempt
+def comparar_medidas_aluno(request):
+
+    data_antiga = request.GET.get('data1')
+    data_atual = request.GET.get('data2')
+    
+    if data_antiga and data_atual:
+        # Buscamos os registros específicos
+        medida_recente = Medidas.objects.get(id=data_antiga)
+        medida_antiga = Medidas.objects.get(id=data_atual)
+
+        campos = ['peso','torax', 'cintura', 'quadril', 'coxa_direita', 'coxa_esquerda', 'braco_direito', 'braco_esquerdo']
+        comparativo = []
+
+        for campo in campos:
+            v_recente = getattr(medida_recente, campo)
+            v_antigo = getattr(medida_antiga, campo)
+            diff = v_recente - v_antigo
+
+            comparativo.append({
+                'label': campo.capitalize(),
+                'v_antigo': v_antigo,
+                'v_recente': v_recente,
+                'diff': round(diff, 2),
+                'status': 'Aumentou' if diff > 0 else 'Diminuiu' if diff < 0 else 'Manteve'
+            })
+        
+        context={
+            'comparativo': comparativo,
+            'medida_recente': medida_recente,
+            'medida_antiga': medida_antiga,
+        }
+ 
+    return render(request, 'inicio/ajax/comparar_medidas.html', context)
+    
+def update_peso(request,id):
+    update_dados = DadosIniciais.objects.get(id=id)
+    peso = request.POST.get('peso')
+        
+    update_dados.peso = peso.replace(',', '.')
+        
+    update_dados.save()
+    
+    return redirect('home')
+
 def treino_micro(request, id):
 
     user_auth = request.user.is_authenticated
@@ -88,6 +157,7 @@ def medidas(request, id):
         user = request.user,
         mesociclo_id = id,
         peso = peso_antigo.replace(',', '.'),
+        pescoco = request.POST.get('pescoco'),
         torax = request.POST.get('torax'),
         cintura = request.POST.get('cintura'),
         quadril = request.POST.get('quadril'),
@@ -227,8 +297,8 @@ def pre_cadastro(request):
         )
         pre_cadastro.save()
         messages.success(request, "Conta criada!")
-        return redirect('login/register-success.html')
+        return redirect('register_success')
     return render(request, 'login/register.html')
 
 def register_success(request):
-    return redirect('register_success')
+    return render(request, 'login/register-success.html')

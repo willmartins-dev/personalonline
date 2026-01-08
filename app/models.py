@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from app_personal.models import Mesociclo
 import datetime
+import math
 
 
 class DadosIniciais(models.Model):
@@ -36,10 +37,15 @@ class DadosIniciais(models.Model):
             tmb = 0
 
         return round(tmb,2)
+    
+    def __ini__(self,altura):
+        self.altura_aluno = altura
+
 class Medidas(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     mesociclo_id = models.IntegerField(null=True)
     peso = models.DecimalField(null=True, max_digits=10, decimal_places=2)
+    pescoco = models.FloatField(null=True)
     torax = models.FloatField(null=True)
     cintura = models.FloatField(null=True)
     quadril = models.FloatField(null=True)
@@ -47,6 +53,30 @@ class Medidas(models.Model):
     braco_esquerdo = models.FloatField(null=True)
     coxa_direita = models.FloatField(null=True)
     coxa_esquerda = models.FloatField(null=True)
+    created_at = models.DateField(auto_now=True)
+
+    def calcular_percentual_gordura(self, sexo, altura=0):
+
+        try:
+            if sexo == 'masculino':
+                # Fórmula para Homens:
+                # %Gordura = 86.010 * log10(Abdômen - Pescoço) - 70.041 * log10(Altura) + 36.76
+                resultado = 495/(1.0324 - 0.19077*math.log10(self.cintura - self.pescoco)+0.15456*math.log10(altura))-450
+                # resultado = (86.010 * math.log10(self.cintura - self.pescoco) - 70.041 * math.log10(altura) + 36.76)
+            else:
+                # Fórmula para Mulheres:
+                # %Gordura = 163.205 * log10(Cintura + Quadril - Pescoço) - 97.684 * log10(Altura) - 78.387
+                resultado = 495/(1.29579-0.35004*math.log10(self.cintura+self.quadril-self.pescoco)+0.22100*math.log10(altura))-450
+                #resultado = (163.205 * math.log10(self.cintura + self.quadril - self.pescoco) - 97.684 * math.log10(altura) - 78.387)
+            
+            return round(resultado, 2)
+        
+        except (ValueError, TypeError, ZeroDivisionError):
+            # Retorna None ou 0 se os valores forem inválidos para o logaritmo
+            return None
+
+    def __str__(self):
+        return f" Gordura: {self.calcular_percentual_gordura()}'peso:'{self.peso}%"
 
 class Anamnese(models.Model):
     # Dados pessoais

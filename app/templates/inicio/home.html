@@ -5,6 +5,26 @@ Início
 
 {% block 'content'%}
 {% if user %}
+
+<div id="modal-medidas" class="p-4 bg-white w-full h-full item-center justify-center fixed z-10 hidden">
+    <div class="flex items-center justify-between border-b-1 border-grey-200">
+    <h1 class="p-2 "><i class="fa fa-line-chart"></i>&nbsp;Resultado da comparação</h1><button class="text-3xl cursor-pointer text-slate-800" id="close-medidas"><i class="fa fa-close"></i></button>
+
+    </div>
+    <div id="mostrar-resultado"></div>
+</div>
+<div class="fixed w-full h-full bg-black/70 z-10 flex justify-center item-center modal-atualiza-peso hidden">
+    <form action="{% url 'update_peso' dados_iniciais.id %}" method="post" class="bg-white rounded m-auto p-4">
+        <h1 class="text-lg border-b-1 py-3">Mantenha seu peso sempre atualizado a cada mês!</h1>
+        {% csrf_token %}
+        <div class="flex flex-col gap-3 py-2">
+            <label class="font-medium">Alterar Peso(kg):</label>
+            <input type="text" class="peso2 bg-slate-200 p-4 text-black font-medium" value="{{dados_iniciais.peso}}" name="peso" placeholder="Digite aqui...">
+            <button type="submit" class="cursor-pointer p-4 text-white bg-green-500">Atualizar</button>
+            <button class="cursor-pointer p-4 bg-red-500 text-white fechar-atualiza-peso">Cancelar</button>
+        </div>
+    </form>
+</div>
 <h1 class="text-center text-lg border-b-1 border-slate-600 p-4 text-slate-200">DASHBOARD</h1>
 <section class="content w-full max-w-[900px] m-auto my-2 p-4 text-white space-y-3 ">
     <div class="flex items-center justify-between bg-slate-500 p-2 rounded">
@@ -12,13 +32,14 @@ Início
         <a href="{% url 'logout' %}" class="bg-red-500 py-1 px-3 rounded-full"><i class="fa fa-sign-out"></i> Sair</a>
     </div>
     <div class="flex flex-wrap items-center justify-between my-4 ">
+        {% if peso != 0 %}
         <div class=" w-26 h-26  flex flex-col items-center justify-center text-green-400">
             <i class="fa fa-child fa-lg"></i>
             <p class="font-medium">Peso Atual</p>
-            <p>{{dados_iniciais.peso}}Kg</p>
-            
+            <p>{{peso}}Kg</p>
         </div>
-        <div class="w-26 h-26 rounded flex flex-col items-center justify-center text-green-400">
+        {%endif%}
+        <div class="w-26 h-26 rounded flex flex-col items-center justify-center text-blue-300">
             <i class="fa fa-tint fa-lg"></i>
             <p class="font-medium">Hidrate-se</p>
             <p>{{calc_agua}}L/dia</p>
@@ -28,33 +49,45 @@ Início
             <p class="font-medium">TMB</p>
             <p>{{tmb}}Kcal</p>
         </div>
+        {% if gordura != 0 %}
+        <div class="w-26 h-26 rounded flex flex-col items-center justify-center text-amber-400">
+            <i class="fa fa-heart fa-lg"></i>
+            <p class="font-medium">Gordura</p>
+            <p>{{gordura}}%</p>
+        </div>
+        {%endif%}
     </div>
     {% if treino %}
     <div class="bg-white p-3 rounded-lg text-amber-900 shadow-md my-2">
         
         {% for t in treino %}
-        <div class="flex items-center justify-between items-center bg-slate-300 p-2">
+        <div class="flex rounded items-center justify-between items-center bg-slate-200 p-2">
             <h2 class="text-sm text-slate-900 uppercase"><i class="fa fa-heartbeat"></i>&nbsp;{{t.titulo}}</h2>     
-            <p class="text-red-500">Termina: {{t.duracao}}</p>
+            <p class="text-red-500 font-medium">Termina: {{t.duracao}}</p>
         </div>
 
-        <ul class="w-full flex items-center my-4 gap-2 border-b-1 border-slate-400 py-1">
+        <ul class="w-full flex items-center my-4 gap-2 border-b-1 border-slate-400">
             <li class="w-full">
-                <a href="{% url 'medidas' t.id %}" class="text-center block text-slate-900 font-medium p-2 bg-slate-200 ">
+                <a href="{% url 'medidas' t.id %}" class="text-center block text-slate-100  p-2 bg-slate-700 ">
                     <i class="fa fa-pencil"></i>
                     Registrar Medidas
                 </a>
                
             </li>
-            <li class="w-full">
-                 <a href="{% url 'treino_micro' t.id%}" class="text-center block p-2 bg-slate-200 text-slate-900 font-medium ">
+            <li class="w-full p-2">
+                 <a href="{% url 'treino_micro' t.id%}" class="text-center block p-2 bg-amber-400 text-slate-900">
                     <i class="fa fa-eye"></i>
                     Vizualizar Treino
                 </a>
             </li>
         </ul>
+        
         {% endfor %}
+        
     </div>
+    <!-- <div class="text-center">
+            <a href="" class="rounded font-medium bg-blue-400 text-white p-2 w-full text-center"><i class="fa fa-list"></i> &nbsp;Todos os treinos</a>
+        </div> -->
     {% else %}
         <div class="bg-white text-slate-900 text-center rounded-2xl p-4 space-y-4">
             <i class="fa fa-exclamation-triangle fa-2x text-orange-400"></i>
@@ -62,7 +95,36 @@ Início
             <a href="{% url 'anamnese' %}" class="bg-amber-400 py-2 px-4 rounded-full uppercase font-medium">Responder agora!</a>
         </div>
     {% endif %}
-    <br><br><br><br><br><br><br>
+    
 </section>
+{% if medidas %}
+<section class="content w-full max-w-[900px] m-auto my-2 ">
+    <h1 class="text-white border-b-1 border-white p-2"><i class="fa fa-line-chart"></i>&nbsp;Resultado Antropométrico (Medidas)</h1>
+    <form action="{% url 'comparar_medidas_aluno' %}" method="get" class="form-comparar flex bg-slate-200 p-2 m-4 rounded gap-4">
+        {% csrf_token %}
+        <div>
+            <label>Data inicial:</label>
+            <select name="data1" id="data_antiga" class="bg-slate-600 text-white rounded p-2">
+                {% for data1 in medidas %}
+                    <option value="{{data1.id}}">{{data1.created_at|date:'d/m/Y'}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label>Comparativo:</label>
+            <select name="data2" id="data_atual" class="bg-slate-600 text-white rounded p-2">
+                {% for data2 in medidas %}
+                    <option value="{{data2.id}}">{{data2.created_at|date:'d/m/Y'}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label>&nbsp;</label>
+            <button type="submit" class="cursor-pointer bg-green-500 uppercase text-white font-medium p-2 rounded">Comparar</button>
+        </div>
+    </form>
+    <br><br><br><br><br><br>
+</section>
+{%endif%}
 {% endif %}
 {% endblock %}

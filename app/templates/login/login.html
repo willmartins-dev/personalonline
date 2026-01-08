@@ -3,7 +3,7 @@
 
 {% block 'content' %}
 <div class="flex justify-center items-center my-4">
-    <h1 class="text-3xl text-yellow-400">Personal App</h1>
+    <h1 class="text-3xl text-yellow-400 text-center">Willian Martins<br><span class="text-slate-400">Personal Trainer</span></h1>
 </div>
 <section class="content flex flex-col justify-center items-center m-auto w-full  max-w-[500px] p-2">
     <h1 class="text-4xl text-white my-4 m-auto w-[10%] flex flex-col items-center">
@@ -14,14 +14,19 @@
         
         {% csrf_token %} 
         <label>E-mail:</label>
-        <input type="email" name="username" class="p-2 rounded-full border">
+        <input type="email" name="username" class="p-2 rounded-full border border-slate-400">
         <label>Senha:</label>
-        <input type="password" name="password" class="p-2 rounded-full border">
-        <button type="submit" class="bg-yellow-600 hover:bg-yellow-400 text-black font-medium uppercase rounded-full p-2 cursor-pointer">
+        <input type="password" name="password" class="p-2 rounded-full border border-slate-400">
+        <button type="submit" class="bg-yellow-400 hover:bg-yellow-500 text-black font-medium uppercase rounded-full p-2 cursor-pointer">
             <i class="fa fa-sign-in"></i>
             Login
         </button>
     </form>
- 
+ <br>
+       <a href="{%url 'pre_cadastro'%}" class="text-center hover:bg-green-400 bg-white text-slate-900 p-2 rounded uppercase font-medium shadow-lg ">
+            <i class="fa fa-user-plus"></i>
+            Quero entrar para o time
+        </a>
+        <br>
 </section>
 {% endblock %}
