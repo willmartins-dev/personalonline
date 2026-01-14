@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.urls import reverse
 from django.views.decorators.csrf import csrf_exempt
 from .models import CategoriaExercicios, Exercicios, Mesociclo, Microciclo, ExerciciosCliente
-from app.models import DadosIniciais,preCadastro,Medidas
+from app.models import DadosIniciais,preCadastro,Medidas, Anamnese
 import re
 
 
@@ -46,13 +46,54 @@ def clientes(request):
     if request.method == 'GET':
         grupo, created = Group.objects.get_or_create(name = request.user.email)
         get_group = Group.objects.get(name = request.user.email)
-
-            
+        
         usuarios = User.objects.filter(groups = get_group.id)
         context={
-            'usuarios':usuarios
+            'usuarios':usuarios,
+
         }
         return render(request, 'gerenciar/clientes.html', context)
+        
+def anamnese(request, id):
+
+    anamnese = Anamnese.objects.filter(user_id=id)
+    cliente = User.objects.get(id=id)
+
+    context={
+        'anamnese':anamnese,
+        'cliente':cliente
+    }
+
+    return render(request, 'gerenciar/anamnese.html', context)
+
+def form_dados_clientes(request,id):
+    dados_clientes = DadosIniciais.objects.get(user_id_id=id)
+    user = User.objects.get(id=id)
+    if request.method == 'GET':
+        
+        
+
+        context={
+            'dados':dados_clientes,
+            'user':user,
+        }
+    else:
+        
+        dados_clientes.data_nascimento = request.POST.get('nascimento')
+        dados_clientes.altura = request.POST.get('altura')
+        dados_clientes.genero = request.POST.get('genero')
+        dados_clientes.celular = request.POST.get('celular')
+
+        dados_clientes.save()
+
+        user.first_name = request.POST.get('nome')
+        user.email = request.POST.get('email')
+        user.save()
+
+        return redirect('clientes')
+
+    return render(request, 'gerenciar/ajax/form_dados_clientes.html', context)
+
 def treinamento(request, id):
     
     user = {

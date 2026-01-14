@@ -29,7 +29,7 @@ def home(request):
             return redirect('dados_iniciais')
         else:    
             dados_iniciais = DadosIniciais.objects.get(user_id = user_id)
-            gorduras = Medidas.objects.filter(user_id=user_id).order_by('-id')[:1]
+            gorduras = Medidas.objects.filter(user_id=user_id).order_by('-id')
             dados_gordura=[]
             if gorduras:
                 
@@ -61,10 +61,18 @@ def home(request):
     
 @csrf_exempt
 def comparar_medidas_aluno(request):
-
+    user_id = request.user.id
     data_antiga = request.GET.get('data1')
     data_atual = request.GET.get('data2')
-    
+
+     #calculo gordura
+    dados_iniciais = DadosIniciais.objects.get(user_id = user_id)
+    gorduras1 = Medidas.objects.get(user_id=user_id, id=data_antiga)
+    gorduras2 = Medidas.objects.get(user_id=user_id, id=data_atual)    
+
+    g1 = gorduras1.calcular_percentual_gordura(dados_iniciais.genero, dados_iniciais.altura)
+    g2 = gorduras2.calcular_percentual_gordura(dados_iniciais.genero, dados_iniciais.altura)
+
     if data_antiga and data_atual:
         # Buscamos os registros específicos
         medida_recente = Medidas.objects.get(id=data_antiga)
@@ -72,7 +80,7 @@ def comparar_medidas_aluno(request):
 
         campos = ['peso','torax', 'cintura', 'quadril', 'coxa_direita', 'coxa_esquerda', 'braco_direito', 'braco_esquerdo']
         comparativo = []
-
+       
         for campo in campos:
             v_recente = getattr(medida_recente, campo)
             v_antigo = getattr(medida_antiga, campo)
@@ -90,6 +98,11 @@ def comparar_medidas_aluno(request):
             'comparativo': comparativo,
             'medida_recente': medida_recente,
             'medida_antiga': medida_antiga,
+            'gordura1':g1,
+            'gordura2':g2,
+            'data1':gorduras1,
+            'data2':gorduras2,
+            
         }
  
     return render(request, 'inicio/ajax/comparar_medidas.html', context)

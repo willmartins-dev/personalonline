@@ -1,0 +1,71 @@
+{% extends 'base_personal/base.html' %}
+{% block 'title'%}
+Anamnese
+{% endblock %}
+
+{% block 'content'%}
+
+{% for anamnese in anamnese %}
+
+<section class="container w-full max-w-[900px] m-auto">
+    <div class="p-2 flex items-center justify-between border-b-1 border-white">
+    <h1 class="text-2xl text-white p-2 ">Anamnese do aluno <span class="text-amber-400">{{cliente.first_name}}</span></h1>
+    <button type="button" onclick="history.back()" class="text-white font-bold cursor-pointer"><i class="fa fa-arrow-left"></i>&nbsp;VOLTAR</button>
+    </div>
+    <div class="p-2">
+        <h2 class="text-white">Lesões anteriores</h2>
+        <p class="text-amber-400">{{anamnese.lesoes_anteriores}}</p>
+    </div>
+    <div class="p-2">
+        <h2 class="text-white">Doenças Crônicas</h2>
+        <p class="text-amber-400">{{anamnese.doencas_cronicas}}</p>
+    </div>
+    <div class="p-2">
+        <h2 class="text-white">Alergias</h2>
+        <p class="text-amber-400">{{anamnese.alergias}}</p>
+    </div>
+    <div class="p-2">
+        <h2 class="text-white">Restrições Médicas</h2>
+        <p class="text-amber-400">{{anamnese.restricoes_medicas}}</p>
+    </div>
+    <div class="p-2">
+        <h2 class="text-white">Atividade Física Atual</h2>
+        <p class="text-amber-400">{{anamnese.atividade_fisica_atual}}</p>
+    </div>
+    <div class="p-2">
+        <h2 class="text-white">Horas de Sono</h2>
+        <p class="text-amber-400">{{anamnese.horas_sono_noite}}</p>
+    </div>
+    <div class="p-2">
+        <h2 class="text-white">Fumante</h2>
+        <p class="text-amber-400">{{anamnese.fumante}}</p>
+    </div>
+    <div class="p-2">
+        <h2 class="text-white">Qtd. Cigarros</h2>
+        <p class="text-amber-400">{{anamnese.cigarro_dia}}</p>
+    </div>
+    <div class="p-2">
+        <h2 class="text-white">Consumo àlcool</h2>
+        <p class="text-amber-400">{{anamnese.consumo_alcool}}</p>
+    </div>
+    <div class="p-2">
+        <h2 class="text-white">Alimentação</h2>
+        <p class="text-amber-400">{{anamnese.alimentação}}</p>
+    </div>
+    <div class="p-2">
+        <h2 class="text-white">Objetivos</h2>
+        <p class="text-amber-400">{{anamnese.objetivos}}</p>
+    </div>
+    <div class="p-2">
+        <h2 class="text-white">Execícios de preferênia</h2>
+        <p class="text-amber-400">{{anamnese.preferencia_exercicios}}</p>
+    </div>
+    <div class="p-2">
+        <h2 class="text-white">Declaro verdade em todas as respostas</h2>
+        <p class="text-amber-400">{{anamnese.declaracao_verdade}}</p>
+    </div>
+    <br><br><br><br><br><br>
+</section>
+{% endfor %}
+
+{% endblock %}

@@ -187,4 +187,17 @@ const csrftoken = getCookie('csrftoken');
       })
    })
 
+   $('.modal-dados').on('click', function(e){
+      
+      const formId = $(this).attr('data-href')
+      
+      $('#modal-dados-clientes').fadeIn()
+       $('#exibe-form').load(formId)
+
+
+
+   })
+   $('.close-dados-clientes').on('click', function(e){
+      $('#modal-dados-clientes').fadeOut()
+   })
 })//fim document

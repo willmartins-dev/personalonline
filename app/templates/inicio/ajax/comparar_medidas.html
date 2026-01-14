@@ -1,5 +1,19 @@
 <section class="bg-white">
-    <br>
+<br>
+<h1 class="p-4 round bg-slate-100 text-center font-medium">{{data1.created_at}} x {{data2.created_at}}</h1>
+<div>
+<h1 class="p-4 border-b-1 border-slate-200">Gordura corporal</h1>
+<div class="flex justify-center items-end gap-4 h-[200px]">
+   
+    <div class="w-26 bg-amber-500 text-black" style="height:{{gordura1|floatformat:0}}%">
+        <p class="text-center">{{gordura1}}%</p>
+    </div>
+    <div class="w-26 bg-amber-500 text-black" style="height:{{gordura2|floatformat:0}}%">
+        <p class="text-center">{{gordura2}}%</p>
+    </div>
+</div>
+<br>
+</div>
 {% if comparativo %}
     <table class="w-full">
         <thead class="bg-slate-700 text-white">
@@ -26,4 +40,6 @@
         </tbody>
     </table>
 {% endif %}
+
+
 </section>

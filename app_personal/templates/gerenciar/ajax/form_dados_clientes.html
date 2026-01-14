@@ -1,0 +1,43 @@
+{% if dados and user %}
+<h1 class="p-4"><span class="font-bold">Último Login:</span> {{user.last_login}}</h1>
+<form action="{% url 'form_dados_clientes' user.id%}" method="post" class="m-auto gap-4 p-4 flex flex-wrap w-full max-w-[780px] ">
+    {%csrf_token%}
+    <div class="w-full">
+        <label class="block">Nome:</label>
+        <input type="text" name="nome" class="w-full bg-slate-700 text-white p-2 rounded" value="{{user.first_name}}">    
+    </div>
+    <div>
+        <label class="block">Email:</label>
+        <input type="email" name="email" class="bg-slate-700 text-white p-2 rounded" value="{{user.email}}">    
+    </div>
+        <div>
+        <label class="block">Data de Nascimento:</label>
+        <input type="date" name="nascimento"  class="bg-slate-700 text-white p-2 rounded" value="{{dados.data_nascimento|date:'Y-d-m'}}">    
+    </div>
+    <div>
+        <label class="block">Altura(cm):</label>
+        <input type="number" name="altura" class="bg-slate-700 text-white p-2 rounded" value="{{dados.altura}}">    
+    </div>
+
+    <div>
+        <label class="block">Celular:</label>
+        <input type="number" name="celular" class="bg-slate-700 text-white p-2 rounded" value="{{dados.celular}}">    
+    </div>
+    <div class="gap-2">
+        <label>Gênero:</label>
+            <div class="flex items-center text-xl gap-3">
+            <label>
+            Masculino
+            <input type="radio" name="genero" value="masculino" {% if dados.genero == 'masculino' %}checked{%else%} '' {%endif%}/>
+            </label>
+            <label>
+            Feminino
+            <input type="radio" name="genero" value="feminino" {% if dados.genero == 'feminino' %}checked{%else%} '' {%endif%}/>
+            </label>
+        </div>
+    </div>
+    <div class="w-full">
+        <button type="submit" class="bg-green-500 text-white rounded p-2 w-full text-center cursor-pointer"><i class="fa fa-save"></i>&nbsp;Salvar</button>
+    </div>
+</form>
+{% endif %}
