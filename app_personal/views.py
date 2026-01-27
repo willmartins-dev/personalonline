@@ -135,7 +135,7 @@ def delete_exercicio_cliente(request,id):
 def microciclo(request,id):
 
     mesociclo = Mesociclo.objects.get(id=id)
-    microciclo = Microciclo.objects.filter(mesociclo__id = id)
+    microciclo = Microciclo.objects.filter(mesociclo__id = id).order_by('id').reverse()
     exercicios = ExerciciosCliente.objects.filter(microciclo__mesociclo = mesociclo)
 
     if request.method == 'GET':
@@ -153,7 +153,9 @@ def microciclo(request,id):
         )
         microciclo.save()
         return redirect('microciclo', id=id)
-    
+
+
+    return redirect('clientes')
 @csrf_exempt
 def comparar_medidas(request):
 

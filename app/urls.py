@@ -11,6 +11,7 @@ urlpatterns = [
     path('comparar_medidas_aluno/', views.comparar_medidas_aluno, name='comparar_medidas_aluno'),
     path('medidas/<int:id>', views.medidas, name='medidas'),
     path('dados-iniciais/', views.dados_iniciais, name='dados_iniciais'),
+    path('delete_dadosiniciais/<int:id>', views.delete_dadosiniciais, name='delete_dadosiniciais'), 
     path('update-dados/', views.update_dados, name='update_dados'),
     path('update-peso/<int:id>', views.update_peso, name='update_peso'),
     path('anamnese/', views.anamnese, name='anamnese'),

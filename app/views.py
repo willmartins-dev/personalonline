@@ -11,7 +11,9 @@ import re
 
 def index(request):
     return render(request, 'publico/index.html')
-
+def delete_dadosiniciais(request, id):
+    dados = DadosIniciais.objects.get(id=id)
+    dados.delete()
 def home(request):
     user_auth = request.user.is_authenticated
     user_id = request.user.id
@@ -23,11 +25,15 @@ def home(request):
         dados_iniciais_verificados = DadosIniciais.objects.filter(user_id = user_id)
         treino = Mesociclo.objects.filter(user_id=user_id).order_by('-id')[:1]
         medidas = Medidas.objects.filter(user_id=user_id)
+
+        if not medidas:
+            medidas = None
         
 
         if not dados_iniciais_verificados:
             return redirect('dados_iniciais')
         else:    
+            
             dados_iniciais = DadosIniciais.objects.get(user_id = user_id)
             gorduras = Medidas.objects.filter(user_id=user_id).order_by('-id')
             dados_gordura=[]
@@ -40,7 +46,7 @@ def home(request):
                         'peso':g.peso
                     })
             else:
-                dados_gordura=[{'gordura':0}]
+                dados_gordura=[{'gordura':0, 'peso':0}]
 
             context={
             'treino':treino,
