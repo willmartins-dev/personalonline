@@ -6,7 +6,7 @@ Início
 {% block 'content'%}
 <h1 class="text-center text-lg border-b-1 border-slate-600 p-4 text-slate-200">MEDIDAS ANTROPOMÉTRICAS</h1>
 <section class="container w-full max-w-[900px] m-auto my-2 p-4 text-white space-y-3 ">
-
+{% if  peso%}
 <p class="text-slate-800 p-3 bg-slate-200 rounded"><i class="fa fa-bar-chart"></i>Cadastre suas medidas para que possamos comparar seu progresso, com os treinos futuros!</p>
 <div>
     <div>
@@ -32,7 +32,7 @@ Início
         {{residual|floatformat:2}}Kg
     </div>
 </div>
-
+{%endif%}
 {% if not dados%}
 <form action="{% url 'medidas' id_meso %}" method="post" class="flex flex-wrap justify-between">
     {% csrf_token %}

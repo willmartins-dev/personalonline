@@ -51,6 +51,10 @@ def home(request):
                 musculo = float(dados_gordura[0]['peso']) - (ossos + residual + gordura)
             else:
                 dados_gordura=[{'gordura':0, 'peso':0}]
+                ossos = None
+                residual = None
+                gordura = None
+                musculo = None
 
             context={
             'treino':treino,
@@ -226,6 +230,10 @@ def medidas(request, id):
                 musculo = float(dados_gordura[0]['peso']) - (ossos + residual + gordura)
             else:
                 dados_gordura=[{'gordura':0, 'peso':0}]
+                ossos = None
+                residual = None
+                gordura = None
+                musculo = None
 
         dados_medidas = Medidas.objects.filter(mesociclo_id = id)
         context = {
