@@ -45,6 +45,10 @@ def home(request):
                         'gordura': g.calcular_percentual_gordura(dados_iniciais.genero, dados_iniciais.altura),
                         'peso':g.peso
                     })
+                ossos = float(dados_gordura[0]['peso'])*0.15
+                residual = float(dados_gordura[0]['peso'])*0.24
+                gordura = float(dados_gordura[0]['peso'])*float(dados_gordura[0]['gordura'])/100
+                musculo = float(dados_gordura[0]['peso']) - (ossos + residual + gordura)
             else:
                 dados_gordura=[{'gordura':0, 'peso':0}]
 
@@ -56,8 +60,12 @@ def home(request):
             'calc_agua':dados_iniciais.calc_agua(),
             'tmb':dados_iniciais.calc_kcal(),
             'medidas':medidas,
+            'gordura_kg':gordura,
             'gordura':dados_gordura[0]['gordura'],
             'peso':dados_gordura[0]['peso'],
+            'musculo':musculo,
+            'ossos':ossos,
+            'residual':residual,
             }
             
                 
@@ -188,10 +196,48 @@ def medidas(request, id):
         medidas.save()
         return redirect('medidas', id)
     else:        
+        user_id = request.user.id
+        dados_iniciais_verificados = DadosIniciais.objects.filter(user_id = user_id)
+        treino = Mesociclo.objects.filter(user_id=user_id).order_by('-id')[:1]
+        medidas = Medidas.objects.filter(user_id=user_id)
+
+        if not medidas:
+            medidas = None
+        
+
+        if not dados_iniciais_verificados:
+            return redirect('dados_iniciais')
+        else:    
+            
+            dados_iniciais = DadosIniciais.objects.get(user_id = user_id)
+            gorduras = Medidas.objects.filter(user_id=user_id).order_by('-id')
+            dados_gordura=[]
+            if gorduras:
+                
+
+                for g in gorduras:
+                    dados_gordura.append({
+                        'gordura': g.calcular_percentual_gordura(dados_iniciais.genero, dados_iniciais.altura),
+                        'peso':g.peso
+                    })
+                ossos = float(dados_gordura[0]['peso'])*0.13
+                residual = float(dados_gordura[0]['peso'])*0.22
+                gordura = float(dados_gordura[0]['peso'])*float(dados_gordura[0]['gordura'])/100
+                musculo = float(dados_gordura[0]['peso']) - (ossos + residual + gordura)
+            else:
+                dados_gordura=[{'gordura':0, 'peso':0}]
+
         dados_medidas = Medidas.objects.filter(mesociclo_id = id)
         context = {
             'id_meso':id,
-            'dados':dados_medidas
+            'dados':dados_medidas,
+            'medidas':medidas,
+            #'gordura':dados_gordura[0]['gordura'],
+            'gordura':gordura,
+            'peso':dados_gordura[0]['peso'],
+            'musculo':musculo,
+            'ossos':ossos,
+            'residual':residual,
         }
         return render(request, 'inicio/medidas.html', context)
 def delete_medidas(request, id):
@@ -321,3 +367,9 @@ def pre_cadastro(request):
 
 def register_success(request):
     return render(request, 'login/register-success.html')
+
+def custom_404_view(request, exception):
+    return render(request, 'errors/404.html', status=404)
+
+def custom_500_view(request):
+    return render(request, 'errors/500.html', status=500)

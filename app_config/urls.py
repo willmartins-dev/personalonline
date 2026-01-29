@@ -16,9 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+handler404 = 'app.views.custom_404_view'
+handler500 = 'app.views.custom_500_view'
 urlpatterns = [
     path('', include('app.urls')),
     path('personal/', include('app_personal.urls')),
     path('admin/', admin.site.urls),
     path("reload/", include("django_browser_reload.urls")),
 ]
+

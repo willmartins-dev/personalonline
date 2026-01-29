@@ -33,7 +33,7 @@ Início
     </div>
     <div class="flex flex-wrap items-center justify-between my-4 ">
         {% if peso != 0 %}
-        <div class=" w-26 h-26  flex flex-col items-center justify-center text-green-400">
+        <div class=" w-24 h-24  flex flex-col items-center justify-center text-green-400">
             <i class="fa fa-child fa-lg"></i>
             <p class="font-medium">Peso Atual</p>
             <p>{{peso}}Kg</p>
@@ -53,7 +53,22 @@ Início
         <div class="w-26 h-26 rounded flex flex-col items-center justify-center text-amber-400">
             <i class="fa fa-heart fa-lg"></i>
             <p class="font-medium">Gordura</p>
-            <p>{{gordura}}%</p>
+            <p>{{gordura_kg|floatformat:2}}Kg</p>
+        </div>
+        <div class="w-26 h-26 rounded flex flex-col items-center justify-center text-red-400">
+            <i class="fa fa-heart fa-lg"></i>
+            <p class="font-medium">Musculo</p>
+            <p>{{musculo|floatformat:2}}Kg</p>
+        </div>
+        <div class="w-26 h-26 rounded flex flex-col items-center justify-center text-gray-400">
+            <i class="fa fa-heart fa-lg"></i>
+            <p class="font-medium">Ossos</p>
+            <p>{{ossos|floatformat:2}}Kg</p>
+        </div>
+        <div class="w-26 h-26 rounded flex flex-col items-center justify-center text-gray-400">
+            <i class="fa fa-heart fa-lg"></i>
+            <p class="font-medium">Residual</p>
+            <p>{{residual|floatformat:2}}Kg</p>
         </div>
         {%endif%}
     </div>
