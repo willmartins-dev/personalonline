@@ -31,48 +31,24 @@ Início
         <h1 class="text-slate-100"><i class="fa fa-user"></i>&nbsp;Olá, {{user.first_name}}</h1>
         <a href="{% url 'logout' %}" class="bg-red-500 py-1 px-3 rounded-full"><i class="fa fa-sign-out"></i> Sair</a>
     </div>
-    <div class="flex flex-wrap items-center justify-between my-4 ">
-        {% if peso != 0 %}
-        <div class=" w-24 h-24  flex flex-col items-center justify-center text-green-400">
-            <i class="fa fa-child fa-lg"></i>
-            <p class="font-medium">Peso Atual</p>
-            <p>{{peso}}Kg</p>
+    <div>
+        <div class="flex justify-between">
+            
+            <div class="w-26 h-26 rounded flex flex-col items-center justify-center text-blue-300">
+                <i class="fa fa-tint fa-lg"></i>
+                <p class="font-medium">Hidrate-se</p>
+                <p>{{calc_agua}}L/dia</p>
+            </div>
+            <div class="w-26 h-26 rounded flex flex-col items-center justify-center text-green-400">
+                <i class="fa fa-heart fa-lg"></i>
+                <p class="font-medium">TMB</p>
+                <p>{{tmb}}Kcal</p>
+            </div>
         </div>
-        {%endif%}
-        <div class="w-26 h-26 rounded flex flex-col items-center justify-center text-blue-300">
-            <i class="fa fa-tint fa-lg"></i>
-            <p class="font-medium">Hidrate-se</p>
-            <p>{{calc_agua}}L/dia</p>
-        </div>
-        <div class="w-26 h-26 rounded flex flex-col items-center justify-center text-green-400">
-            <i class="fa fa-heart fa-lg"></i>
-            <p class="font-medium">TMB</p>
-            <p>{{tmb}}Kcal</p>
-        </div>
-        {% if gordura != 0 %}
-        <div class="w-26 h-26 rounded flex flex-col items-center justify-center text-amber-400">
-            <i class="fa fa-heart fa-lg"></i>
-            <p class="font-medium">Gordura</p>
-            <p>{{gordura_kg|floatformat:2}}Kg</p>
-        </div>
-        <div class="w-26 h-26 rounded flex flex-col items-center justify-center text-red-400">
-            <i class="fa fa-heart fa-lg"></i>
-            <p class="font-medium">Musculo</p>
-            <p>{{musculo|floatformat:2}}Kg</p>
-        </div>
-        <div class="w-26 h-26 rounded flex flex-col items-center justify-center text-gray-400">
-            <i class="fa fa-heart fa-lg"></i>
-            <p class="font-medium">Ossos</p>
-            <p>{{ossos|floatformat:2}}Kg</p>
-        </div>
-        <div class="w-26 h-26 rounded flex flex-col items-center justify-center text-gray-400">
-            <i class="fa fa-heart fa-lg"></i>
-            <p class="font-medium">Residual</p>
-            <p>{{residual|floatformat:2}}Kg</p>
-        </div>
-        {%endif%}
+
     </div>
     {% if treino %}
+    
     <div class="bg-white p-3 rounded-lg text-amber-900 shadow-md my-2">
         
         {% for t in treino %}
@@ -80,7 +56,39 @@ Início
             <h2 class="text-sm text-slate-900 uppercase"><i class="fa fa-heartbeat"></i>&nbsp;{{t.titulo}}</h2>     
             <p class="text-red-500 font-medium">Termina: {{t.duracao}}</p>
         </div>
+        {% if not medidas%}
         <div class="py-1 text-slate-700"><i class="fa fa-warning"></i>&nbsp;Para que possamos comparar seus resultados faça o <strong>registro de suas medidas</strong> em cada treino!</div>
+        {%else%}
+        {% if peso != 0 %}
+            <div class="flex items-center justify-center text-green-400">
+                <p class="font-medium">Peso Atual: {{peso}}Kg</p>
+            </div>
+            {%endif%}
+        <div class="flex items-center justify-between my-4 ">
+             {% if gordura != 0 %}
+            <div class="w-20 h-20 rounded flex flex-col items-center justify-center text-amber-400">
+                <i class="fa fa-heart fa-lg"></i>
+                <p class="font-medium">Gordura</p>
+                <p>{{gordura_kg|floatformat:2}}Kg</p>
+            </div>
+            <div class="w-20 h-20 rounded flex flex-col items-center justify-center text-red-400">
+                <i class="fa fa-heart fa-lg"></i>
+                <p class="font-medium">Musculo</p>
+                <p>{{musculo|floatformat:2}}Kg</p>
+            </div>
+            <div class="w-20 h-20 rounded flex flex-col items-center justify-center text-gray-400">
+                <i class="fa fa-heart fa-lg"></i>
+                <p class="font-medium">Ossos</p>
+                <p>{{ossos|floatformat:2}}Kg</p>
+            </div>
+            <div class="w-20 h-20 rounded flex flex-col items-center justify-center text-gray-400">
+                <i class="fa fa-heart fa-lg"></i>
+                <p class="font-medium">Residual</p>
+                <p>{{residual|floatformat:2}}Kg</p>
+            </div>
+            {%endif%}
+        </div>    
+        {% endif %}
         <ul class="w-full flex items-center my-4 gap-2 border-b-1 border-slate-400">
             <li class="w-full">
                 <a href="{% url 'medidas' t.id %}" class="text-center block text-slate-100  p-2 bg-slate-700 ">
